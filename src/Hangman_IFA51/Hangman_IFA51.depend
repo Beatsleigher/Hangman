@@ -1,0 +1,26 @@
+# depslib dependency file v1.0
+1462379762 source:c:\users\sc\documents\schule\hangman_ifa51\main.c
+	<stdio.h>
+	<stdlib.h>
+	"main.h"
+	"systemio.h"
+
+1462366809 c:\users\sc\documents\schule\hangman_ifa51\main.h
+
+1462527318 c:\users\sc\documents\schule\hangman_ifa51\systemio.h
+	<stdbool.h>
+
+1462955020 source:c:\users\sc\documents\schule\hangman_ifa51\systemio.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<unistd.h>
+	<wininet.h>
+	<windows.h>
+	<windowsx.h>
+	"systemio.h"
+
+1462964030 source:c:\users\sc\documents\schule\hangman_ifa51\words.c
+	"systemio.h"
+	<windows.h>
+
