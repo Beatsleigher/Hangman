@@ -24,3 +24,36 @@
 	"systemio.h"
 	<windows.h>
 
+1462971607 source:c:\users\sc\documents\git\_hangman\src\hangman_ifa51\systemio.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<unistd.h>
+	<wininet.h>
+	<windows.h>
+	<windowsx.h>
+	"systemio.h"
+
+1462527318 c:\users\sc\documents\git\_hangman\src\hangman_ifa51\systemio.h
+	<stdbool.h>
+
+1462970800 source:c:\users\sc\documents\git\_hangman\src\hangman_ifa51\main.c
+	<stdio.h>
+	<stdlib.h>
+	"main.h"
+	"systemio.h"
+	"words.h"
+
+1462366809 c:\users\sc\documents\git\_hangman\src\hangman_ifa51\main.h
+
+1462970719 c:\users\sc\documents\git\_hangman\src\hangman_ifa51\words.c
+	"systemio.h"
+	<windows.h>
+
+1462970837 c:\users\sc\documents\git\_hangman\src\hangman_ifa51\words.h
+
+1462971560 source:c:\users\sc\documents\git\_hangman\src\hangman_ifa51\words.c
+	"systemio.h"
+	"words.h"
+	<windows.h>
+

@@ -32,14 +32,14 @@ bool wordFileExists() {
     strcat(filePaths[3], "\\.hangman\\words\\level_insane");
 
     for (int i = 0; i < sizeof(filePaths) / sizeof(filePaths[0]); i++) {
-        /*printf("%s...", filePaths[i]);
+        printf("%s...", filePaths[i]);
         if (access(filePaths[i], F_OK) != -1) {
             fileExists = true;
             printf("Exists!\n");
         } else {
             fileExists = false;
             printf("Doesn't exist!\n");
-        }*/
+        }
     }
 
     return fileExists;
