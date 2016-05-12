@@ -61,4 +61,10 @@ void saveWordsFile();
 ///////////////////////////////////////
 void readWords(struct WordCategories *wordCats);
 
+///////////////////////////////////////
+/// \brief Creates the directories used
+///         by this program if necessary.
+///////////////////////////////////////
+void createDirectories();
+
 #endif // SYSTEMIO_H_INCLUDED

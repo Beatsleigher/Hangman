@@ -12,6 +12,9 @@
 #include <wininet.h>
 #include <windows.h>
 #include <windowsx.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <stdio.h>
 
 // Project includes
 #include "systemio.h"
@@ -55,5 +58,39 @@ void saveWordsFile() {
 }
 
 void readWords(struct WordCategories *wordCats) {
+
+}
+
+void createDirectories() {
+
+    char filePath[2][128];
+
+    strcpy(filePath[0], getenv("USERPROFILE"));
+    strcpy(filePath[1], getenv("USERPROFILE"));
+
+    strcat(filePath[0], "\\.hangman\\");
+    strcat(filePath[1], "\\.hangman\\words\\");
+
+    for (int i = 0; i < sizeof(filePath) / sizeof(filePath[0]); i++) {
+        //printf("Checking directory %s...", filePath[i]);
+        struct stat info;
+
+        if (stat(filePath[i], &info) != 0) {
+            //printf("Doesn\'t exist! Will create...");
+        } else if(info.st_mode & S_IFDIR) {
+            //printf("Exists!\n");
+            return;
+        } else {
+            //printf("Exists!\n");
+            return;
+        }
+
+        if (_mkdir(filePath[i]) == 0) {
+            //printf("SUCCESS!\n");
+        } else {
+            //printf("ERROR!\n");
+        }
+
+    }
 
 }

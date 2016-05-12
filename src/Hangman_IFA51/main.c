@@ -15,8 +15,10 @@
 
 int main() {
 
+    // Create directories needed by the program
+    createDirectories();
+
     // Check if word files exist.
-    // Download if necessary
     struct WordCategories wordCategories;
     wordCategories = getWords();
 

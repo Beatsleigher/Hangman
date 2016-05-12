@@ -17,6 +17,7 @@
 #include <wininet.h>
 #include <windows.h>
 #include <windowsx.h>
+#include <sys/param.h>
 
 ///////////////////////////////////////
 /// \brief Creates the files containing
@@ -44,16 +45,18 @@ struct WordCategories getWords() {
     if (!filesExist) {
         for (int i = 0; i < sizeof(filePaths) / sizeof(filePaths[0]); i++) {
                 int result;
+                char canonPath[256];
                 switch (i) {
                     case 0:
                         // Level easy
-                        printf("%s...", ".\\words\level_easy");
-                        if (access(".\\words\level_easy", F_OK) != -1) {
+                        _fullpath(canonPath, "..\\words\\level_easy", 265);
+                        printf("%s...", canonPath);
+                        if (access(&canonPath, F_OK) != -1) {
                             printf("Exists!\n");
                         } else {
                             printf("Doesn't exist!\n");
                         }
-                        result = CopyFile(".\\words\level_easy", filePaths[i], true);
+                        result = CopyFile(canonPath, filePaths[i], true);
                         printf("Copying to file %s", filePaths[i]);
                         if (result <= 0) {
                             printf("...FAILED!\n");
@@ -63,13 +66,14 @@ struct WordCategories getWords() {
                         break;
                     case 1:
                         // Level medium
-                        printf("%s...", ".\\words\level_medium");
-                        if (access(".\\words\level_medium", F_OK) != -1) {
+                        _fullpath(canonPath, "..\\words\\level_medium", 265);
+                        printf("%s...", canonPath);
+                        if (access(&canonPath, F_OK) != -1) {
                             printf("Exists!\n");
                         } else {
                             printf("Doesn't exist!\n");
                         }
-                        result = CopyFile(".\\words\level_medium", filePaths[i], true);
+                        result = CopyFile(canonPath, filePaths[i], true);
                         printf("Copying to file %s", filePaths[i]);
                         if (result <= 0) {
                             printf("...FAILED!\n");
@@ -79,13 +83,14 @@ struct WordCategories getWords() {
                         break;
                     case 2:
                         // Level hard
-                        printf("%s...", ".\\words\level_hard");
-                        if (access(".\\words\level_hard", F_OK) != -1) {
+                        _fullpath(canonPath, "..\\words\\level_hard", 265);
+                        printf("%s...", canonPath);
+                        if (access(&canonPath, F_OK) != -1) {
                             printf("Exists!\n");
                         } else {
                             printf("Doesn't exist!\n");
                         }
-                        result = CopyFile(".\\words\level_hard", filePaths[i], true);
+                        result = CopyFile(canonPath, filePaths[i], true);
                         printf("Copying to file %s", filePaths[i]);
                         if (result <= 0) {
                             printf("...FAILED!\n");
@@ -95,13 +100,14 @@ struct WordCategories getWords() {
                         break;
                     case 3:
                         // Level insane
-                        printf("%s...", ".\\words\level_insane");
-                        if (access(".\\words\level_insane", F_OK) != -1) {
+                        _fullpath(canonPath, "..\\words\\level_insane", 265);
+                        printf("%s...", canonPath);
+                        if (access(&canonPath, F_OK) != -1) {
                             printf("Exists!\n");
                         } else {
                             printf("Doesn't exist!\n");
                         }
-                        result = CopyFile(".\\words\level_insane", filePaths[i], true);
+                        result = CopyFile(canonPath, filePaths[i], true);
                         printf("Copying to file %s", filePaths[i]);
                         if (result <= 0) {
                             printf("...FAILED!\n");
