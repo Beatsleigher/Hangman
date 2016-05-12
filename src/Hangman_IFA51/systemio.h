@@ -67,4 +67,11 @@ void readWords(struct WordCategories *wordCats);
 ///////////////////////////////////////
 void createDirectories();
 
+///////////////////////////////////////
+/// \brief Gets the length of the X-axis
+///         of the console in which this
+///         application is being executed.
+///////////////////////////////////////
+int getConsoleXLen();
+
 #endif // SYSTEMIO_H_INCLUDED

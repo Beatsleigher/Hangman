@@ -24,7 +24,7 @@
 	"systemio.h"
 	<windows.h>
 
-1463059471 source:c:\users\sc\documents\git\_hangman\src\hangman_ifa51\systemio.c
+1463065203 source:c:\users\sc\documents\git\_hangman\src\hangman_ifa51\systemio.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -37,15 +37,19 @@
 	<stdio.h>
 	"systemio.h"
 
-1463052397 c:\users\sc\documents\git\_hangman\src\hangman_ifa51\systemio.h
+1463064390 c:\users\sc\documents\git\_hangman\src\hangman_ifa51\systemio.h
 	<stdbool.h>
 
-1463053599 source:c:\users\sc\documents\git\_hangman\src\hangman_ifa51\main.c
+1463068248 source:c:\users\sc\documents\git\_hangman\src\hangman_ifa51\main.c
 	<stdio.h>
 	<stdlib.h>
+	<string.h>
+	<windows.h>
+	<winioctl.h>
 	"main.h"
 	"systemio.h"
 	"words.h"
+	"ui.h"
 
 1462366809 c:\users\sc\documents\git\_hangman\src\hangman_ifa51\main.h
 
@@ -55,7 +59,24 @@
 
 1462970837 c:\users\sc\documents\git\_hangman\src\hangman_ifa51\words.h
 
-1463063204 source:c:\users\sc\documents\git\_hangman\src\hangman_ifa51\words.c
+1463064546 source:c:\users\sc\documents\git\_hangman\src\hangman_ifa51\words.c
+	"systemio.h"
+	"words.h"
+	<windows.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<unistd.h>
+	<wininet.h>
+	<windows.h>
+	<windowsx.h>
+	<sys/param.h>
+
+1463068145 c:\users\sc\documents\git\_hangman\src\hangman_ifa51\ui.h
+	<windows.h>
+
+1463068236 source:c:\users\sc\documents\git\_hangman\src\hangman_ifa51\ui.c
+	"ui.h"
 	"systemio.h"
 	"words.h"
 	<windows.h>

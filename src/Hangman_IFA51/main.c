@@ -7,13 +7,25 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <windows.h>
+#include <winioctl.h>
 
 // Project includes
 #include "main.h"
 #include "systemio.h"
 #include "words.h"
+#include "ui.h"
 
 int main() {
+
+    char *welcome = "Welcome to Hangman";
+    char *by = "By Simon C., Patrick M., Sergey S.";
+
+    printXYCentre(welcome);
+    //printf(welcome);
+    //SetCursorPos(windowSize.dwSize.X) / 2 - strlen(&by) / 2, 4);
+    //printf(by);
 
     // Create directories needed by the program
     createDirectories();

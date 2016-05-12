@@ -50,14 +50,14 @@ struct WordCategories getWords() {
                     case 0:
                         // Level easy
                         _fullpath(canonPath, "..\\words\\level_easy", 265);
-                        printf("%s...", canonPath);
+                        //printf("%s...", canonPath);
                         if (access(&canonPath, F_OK) != -1) {
-                            printf("Exists!\n");
+                            //printf("Exists!\n");
                         } else {
-                            printf("Doesn't exist!\n");
+                            //printf("Doesn't exist!\n");
                         }
                         result = CopyFile(canonPath, filePaths[i], true);
-                        printf("Copying to file %s", filePaths[i]);
+                        //printf("Copying to file %s", filePaths[i]);
                         if (result <= 0) {
                             printf("...FAILED!\n");
                         } else {
@@ -67,14 +67,14 @@ struct WordCategories getWords() {
                     case 1:
                         // Level medium
                         _fullpath(canonPath, "..\\words\\level_medium", 265);
-                        printf("%s...", canonPath);
+                        //printf("%s...", canonPath);
                         if (access(&canonPath, F_OK) != -1) {
-                            printf("Exists!\n");
+                            //printf("Exists!\n");
                         } else {
-                            printf("Doesn't exist!\n");
+                            //printf("Doesn't exist!\n");
                         }
                         result = CopyFile(canonPath, filePaths[i], true);
-                        printf("Copying to file %s", filePaths[i]);
+                        //printf("Copying to file %s", filePaths[i]);
                         if (result <= 0) {
                             printf("...FAILED!\n");
                         } else {
@@ -84,14 +84,14 @@ struct WordCategories getWords() {
                     case 2:
                         // Level hard
                         _fullpath(canonPath, "..\\words\\level_hard", 265);
-                        printf("%s...", canonPath);
+                        //printf("%s...", canonPath);
                         if (access(&canonPath, F_OK) != -1) {
-                            printf("Exists!\n");
+                            //printf("Exists!\n");
                         } else {
-                            printf("Doesn't exist!\n");
+                            //printf("Doesn't exist!\n");
                         }
                         result = CopyFile(canonPath, filePaths[i], true);
-                        printf("Copying to file %s", filePaths[i]);
+                        //printf("Copying to file %s", filePaths[i]);
                         if (result <= 0) {
                             printf("...FAILED!\n");
                         } else {
@@ -101,14 +101,14 @@ struct WordCategories getWords() {
                     case 3:
                         // Level insane
                         _fullpath(canonPath, "..\\words\\level_insane", 265);
-                        printf("%s...", canonPath);
+                        //printf("%s...", canonPath);
                         if (access(&canonPath, F_OK) != -1) {
-                            printf("Exists!\n");
+                            //printf("Exists!\n");
                         } else {
-                            printf("Doesn't exist!\n");
+                            //printf("Doesn't exist!\n");
                         }
                         result = CopyFile(canonPath, filePaths[i], true);
-                        printf("Copying to file %s", filePaths[i]);
+                        //printf("Copying to file %s", filePaths[i]);
                         if (result <= 0) {
                             printf("...FAILED!\n");
                         } else {
@@ -121,6 +121,8 @@ struct WordCategories getWords() {
                 }
         }
     }
+
+
 
     return words;
 }
