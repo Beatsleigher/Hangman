@@ -52,4 +52,24 @@ void printRight(char *str, short yCoord);
 ///////////////////////////////////////
 void printXYCentre(char *str);
 
+///////////////////////////////////////
+/// \brief Prints a given string to the
+///         top row in the middle of the
+///         console screen.
+///////////////////////////////////////
+void printTopCentre(char *str);
+
+///////////////////////////////////////
+/// \brief Prints a given string to the
+///         bottom row in the middle of
+///         the console screen.
+///////////////////////////////////////
+void printBottomCentre(char *str);
+
+///////////////////////////////////////
+/// \brief Prints a progress bar to the
+///         top of the console screen.
+///////////////////////////////////////
+void printProgressBar(int percent);
+
 #endif // UI_H_INCLUDED

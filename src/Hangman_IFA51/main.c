@@ -23,9 +23,11 @@ int main() {
     char *by = "By Simon C., Patrick M., Sergey S.";
 
     printXYCentre(welcome);
-    //printf(welcome);
-    //SetCursorPos(windowSize.dwSize.X) / 2 - strlen(&by) / 2, 4);
-    //printf(by);
+    printCentre(by, getConsoleHeight() / 2);
+
+    printBottomCentre("Initializing... please wait...");
+
+    printProgressBar(20);
 
     // Create directories needed by the program
     createDirectories();
@@ -33,6 +35,8 @@ int main() {
     // Check if word files exist.
     struct WordCategories wordCategories;
     wordCategories = getWords();
+
+
 
     return 0;
 }

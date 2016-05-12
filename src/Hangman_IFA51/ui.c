@@ -67,3 +67,25 @@ void printXYCentre(char *str) {
     setCursorPosition(x, y);
     printf(str);
 }
+
+void printTopCentre(char *str) {
+    int x = getConsoleLen() / 2 - strlen(str) / 2;
+    int y = getConsoleHeight() - getConsoleHeight() + 1;
+    setCursorPosition(x, y);
+    printf(str);
+}
+
+void printBottomCentre(char *str) {
+    int x = getConsoleLen() / 2 - strlen(str) / 2;
+    int y = getConsoleHeight() - 1;
+    setCursorPosition(x, y);
+    printf(str);
+}
+
+void printProgressBar(int percent) {
+    percent = getConsoleLen() / 100 * percent;
+    for (int i = 0; i < percent + 1; i++) {
+        setCursorPosition(i, getConsoleHeight() - getConsoleHeight() + 1);
+        printf("▓"); // TODO: Figure out how to print dark shade...
+    }
+}
