@@ -4,6 +4,8 @@
 // Copies and modifications of this file are prohibited and punishable by law,
 // unless done with EXPRESS PERMISSION by the author of this file.
 
+#define _GNU_SOURCE
+
 // Project includes
 #include "systemio.h"
 #include "words.h"
@@ -122,7 +124,100 @@ struct WordCategories getWords() {
         }
     }
 
+    // Read files
+    for (int i = 0; i < sizeof(filePaths) / sizeof(filePaths[0]); i++) {
 
+        FILE *fPointer;
+        char *line;
+        size_t len = 0;
+        ssize_t read;
+        int index = 0;
+        char wordContainer[5000][150];
+
+        //printRight(filePaths[i], 3);
+
+        fPointer = fopen(filePaths[i], "r");
+        if (fPointer == NULL) {
+            printf("Error occurred while opening file!");
+            exit(0x002);
+        }
+
+        switch (i) {
+            case 0:
+                while ((read = fgets(line, 256, fPointer)) != NULL) {
+                        if (line == NULL) {
+                            printRight("ERROR: LINE IS NULL!", 4);
+                            char lineMsg[150];
+                            sprintf(lineMsg, "Line: %i", index);
+                            printRight(lineMsg, 5);
+                        } else {
+                            strcpy(wordContainer[index], *line);
+                            printf(wordContainer[index]);
+                        }
+                        index++;
+                }
+                for (int i = 0; i < sizeof(words.easyWords) / sizeof(words.easyWords[0]); i++) {
+                    strcpy(words.easyWords[i], wordContainer[i]);
+                }
+                break;
+            case 1:
+                while ((read = fgets(line, 256, fPointer)) != NULL) {
+                        if (line == NULL) {
+                            printRight("ERROR: LINE IS NULL!", 4);
+                            char lineMsg[150];
+                            sprintf(lineMsg, "Line: %i", index);
+                            printRight(lineMsg, 5);
+                        } else {
+                            strcpy(wordContainer[index], *line);
+                            printf(wordContainer[index]);
+                        }
+                        index++;
+                }
+                for (int i = 0; i < sizeof(words.mediumWords) / sizeof(words.mediumWords[0]); i++) {
+                    strcpy(words.mediumWords[i], wordContainer[i]);
+                }
+                break;
+            case 2:
+                while ((read = fgets(line, 256, fPointer)) != NULL) {
+                        if (line == NULL) {
+                            printRight("ERROR: LINE IS NULL!", 4);
+                            char lineMsg[150];
+                            sprintf(lineMsg, "Line: %i", index);
+                            printRight(lineMsg, 5);
+                        } else {
+                            strcpy(wordContainer[index], *line);
+                            printf(wordContainer[index]);
+                        }
+                        index++;
+                }
+                for (int i = 0; i < sizeof(words.hardWords) / sizeof(words.hardWords[0]); i++) {
+                    strcpy(words.hardWords[i], wordContainer[i]);
+                }
+                break;
+            case 3:
+                while ((read = fgets(line, 256, fPointer)) != NULL) {
+                        if (line == NULL) {
+                            printRight("ERROR: LINE IS NULL!", 4);
+                            char lineMsg[150];
+                            sprintf(lineMsg, "Line: %i", index);
+                            printRight(lineMsg, 5);
+                        } else {
+                            strcpy(wordContainer[index], *line);
+                            printf(wordContainer[index]);
+                        }
+                        index++;
+                }
+                for (int i = 0; i < sizeof(words.insaneWords) / sizeof(words.insaneWords[0]); i++) {
+                    strcpy(words.insaneWords[i], wordContainer[i]);
+                }
+                break;
+            default:
+                break;
+        }
+
+        fclose(fPointer);
+
+    }
 
     return words;
 }
