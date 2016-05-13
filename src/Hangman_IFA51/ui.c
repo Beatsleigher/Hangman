@@ -297,14 +297,14 @@ void printMainMenu(int selection) {
     l19[91] = "M  MMMMM  MM M  MMMMM  MM M  MMMMM  M M. `MMM' .M M  MMM  MMM  M M  MMMMM  MM M  MMMMM  M ",
     l20[91] = "M  MMMMM  MM M  MMMMM  MM M  MMMMM  M MM.     .MM M  MMM  MMM  M M  MMMMM  MM M  MMMMM  M ",
     l21[91] = "MMMMMMMMMMMM MMMMMMMMMMMM MMMMMMMMMMM MMMMMMMMMMM MMMMMMMMMMMMMM MMMMMMMMMMMM MMMMMMMMMMM ",
-    levelEasy[4] = "EASY",
-    levelEasySelected[10] = ">> EASY <<",
-    levelMedium[6] = "MEDIUM",
-    levelMediumSelected[12] = ">> MEDIUM <<",
-    levelHard[4] = "HARD",
-    levelHardSelected[10] = ">> HARD <<",
-    levelInsane[6] = "INSANE",
-    levelInsaneSelected[12] = ">> INSANE <<",
+    levelEasy[4] = "EASY\n",
+    levelEasySelected[10] = ">> EASY <<\n",
+    levelMedium[6] = "MEDIUM\n",
+    levelMediumSelected[12] = ">> MEDIUM <<\n",
+    levelHard[4] = "HARD\n",
+    levelHardSelected[10] = ">> HARD <<\n",
+    levelInsane[6] = "INSANE\n",
+    levelInsaneSelected[12] = ">> INSANE <<\n",
     wKey[14] = "W -> Cursor Up",
     sKey[16] = "S -> Cursor Down";
 
@@ -316,5 +316,37 @@ void printMainMenu(int selection) {
     printCentre(l19, 4);
     printCentre(l20, 5);
     printCentre(l21, 6);
+
+    // Print actual menu
+    switch (selection) {
+        case 0:
+            printCentre(levelEasy, 10);
+            /*printCentre(levelMediumSelected, 11);
+            printCentre(levelHard, 12);
+            printCentre(levelInsane, 13);*/
+            break;
+        case 1:
+            printCentre(levelEasy, 10);
+            /*printCentre(levelMedium, 11);
+            printCentre(levelHardSelected, 12);
+            printCentre(levelInsane, 13);*/
+            getch();
+            break;
+        case 2:
+            printCentre(levelEasy, 10);
+            /*printCentre(levelMedium, 11);
+            printCentre(levelHardSelected, 12);
+            printCentre(levelInsane, 13);*/
+            break;
+        case 3:
+            printCentre(levelEasy, 10);
+            /*printCentre(levelMedium, 11);
+            printCentre(levelHard, 12);
+            printCentre(levelInsaneSelected, 13);*/
+            break;
+        default:
+
+            break;
+    }
 
 }
