@@ -82,10 +82,23 @@ void printBottomCentre(char *str) {
     printf(str);
 }
 
-void printProgressBar(int percent) {
+void printProgressBar(int percent, int startFrom) {
     percent = getConsoleLen() / 100 * percent;
-    for (int i = 0; i < percent + 1; i++) {
-        setCursorPosition(i, getConsoleHeight() - getConsoleHeight() + 1);
-        printf("▓"); // TODO: Figure out how to print dark shade...
+    for (int i = startFrom; i < percent + 1; i++) {
+            for (int j = 0; j < sizeof(percent) * 500; j++) {
+                setCursorPosition(i + 1, getConsoleHeight() - getConsoleHeight());
+                printf("");
+            }
+        setCursorPosition(i, getConsoleHeight() - getConsoleHeight());
+        printf("\u00b2"); // TODO: Figure out how to print dark shade...
+    }
+}
+
+void clearScreen() {
+    for (int i = 0; i != getConsoleHeight(); i++) {
+        for (int j = 0; j != getConsoleLen(); j++) {
+            setCursorPosition((short)j, (short)i);
+            printf(" ");
+        }
     }
 }

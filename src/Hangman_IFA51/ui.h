@@ -70,6 +70,15 @@ void printBottomCentre(char *str);
 /// \brief Prints a progress bar to the
 ///         top of the console screen.
 ///////////////////////////////////////
-void printProgressBar(int percent);
+void printProgressBar(int percent, int startFrom);
+
+///////////////////////////////////////
+/// \brief Clears the console screen
+///         by scrolling through the rows
+///         and columns of the screen,
+///         and clearing each char.
+///         Gives it a cool retro-look.
+///////////////////////////////////////
+void clearScreen();
 
 #endif // UI_H_INCLUDED

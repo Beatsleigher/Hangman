@@ -27,16 +27,18 @@ int main() {
 
     printBottomCentre("Initializing... please wait...");
 
-    printProgressBar(20);
+    printProgressBar(20, 0);
 
     // Create directories needed by the program
     createDirectories();
+
+    printProgressBar(50, 20);
 
     // Check if word files exist.
     struct WordCategories wordCategories;
     wordCategories = getWords();
 
-
+    clearScreen();
 
     return 0;
 }
