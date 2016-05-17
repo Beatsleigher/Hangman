@@ -19,6 +19,7 @@
 #include <windows.h>
 #include <windowsx.h>
 #include <sys/param.h>
+#include <conio.h>
 
 int getConsoleLen() {
     CONSOLE_SCREEN_BUFFER_INFO csbi;
@@ -163,7 +164,7 @@ void printWelcomeScreen() {
          l21[91] = "MMMMMMMMMMMM MMMMMMMMMMMM MMMMMMMMMMM MMMMMMMMMMM MMMMMMMMMMMMMM MMMMMMMMMMMM MMMMMMMMMMM ";
 
     short centre = (getConsoleHeight() / 2) - 1;
-    int sleepLen = 10;
+    int sleepLen = 5;
 
     // Print WELCOME
     setCursorPosition(getConsoleLen() / 2 - 93 / 2, centre);
@@ -290,6 +291,9 @@ void printWelcomeScreen() {
 }
 
 void printMainMenu(int selection) {
+    //clearScreen();
+    //system("cls");
+    clearLines(10, 21);
     char l15[91] = "M\"\"MMMMM\"\"MM MMP\"\"\"\"\"\"\"MM M\"\"\"\"\"\"\"`YM MM'\"\"\"\"\"`MM M\"\"\"\"\"`'\"\"\"`YM MMP\"\"\"\"\"\"\"MM M\"\"\"\"\"\"\"`YM ",
     l16[91] = "M  MMMMM  MM M' .mmmm  MM M  mmmm.  M M' .mmm. `M M  mm.  mm.  M M' .mmmm  MM M  mmmm.  M ",
     l17[91] = "M         `M M         `M M  MMMMM  M M  MMMMMMMM M  MMM  MMM  M M         `M M  MMMMM  M ",
@@ -297,56 +301,111 @@ void printMainMenu(int selection) {
     l19[91] = "M  MMMMM  MM M  MMMMM  MM M  MMMMM  M M. `MMM' .M M  MMM  MMM  M M  MMMMM  MM M  MMMMM  M ",
     l20[91] = "M  MMMMM  MM M  MMMMM  MM M  MMMMM  M MM.     .MM M  MMM  MMM  M M  MMMMM  MM M  MMMMM  M ",
     l21[91] = "MMMMMMMMMMMM MMMMMMMMMMMM MMMMMMMMMMM MMMMMMMMMMM MMMMMMMMMMMMMM MMMMMMMMMMMM MMMMMMMMMMM ",
-    levelEasy[4] = "EASY\n",
-    levelEasySelected[10] = ">> EASY <<\n",
-    levelMedium[6] = "MEDIUM\n",
-    levelMediumSelected[12] = ">> MEDIUM <<\n",
-    levelHard[4] = "HARD\n",
-    levelHardSelected[10] = ">> HARD <<\n",
-    levelInsane[6] = "INSANE\n",
-    levelInsaneSelected[12] = ">> INSANE <<\n",
-    wKey[14] = "W -> Cursor Up",
-    sKey[16] = "S -> Cursor Down";
+    *levelSelectionUp = "######################################",
+    *levelSelection =   "#            LEVEL SELECTION         #",
+    *levelEasy = "EASY\n",
+    *levelEasySelected = ">> EASY <<\n",
+    *levelMedium = "MEDIUM\n",
+    *levelMediumSelected = ">> MEDIUM <<\n",
+    *levelHard = "HARD\n",
+    *levelHardSelected = ">> HARD <<\n",
+    *levelInsane= "INSANE\n",
+    *levelInsaneSelected = ">> INSANE <<\n",
+    *instructionText = "CONTROLS:",
+    *wKey = "\tW / UP -> Cursor Up",
+    *sKey = "\tS / DOWN -> Cursor Down",
+    *returnKey = "\tENTER -> Confirm Selection";
 
     // Print title to top of screen
-    printCentre(l15, 0);
-    printCentre(l16, 1);
-    printCentre(l17, 2);
-    printCentre(l18, 3);
-    printCentre(l19, 4);
-    printCentre(l20, 5);
-    printCentre(l21, 6);
+    printCentre(l15, 1);
+    printCentre(l16, 2);
+    printCentre(l17, 3);
+    printCentre(l18, 4);
+    printCentre(l19, 5);
+    printCentre(l20, 6);
+    printCentre(l21, 7);
+
+    // Print level selection title
+    printCentre(levelSelectionUp, 11);
+    printCentre(levelSelection, 12);
+    printCentre(levelSelectionUp, 13);
+
+    // Print instructions
+    printLeft(instructionText, 15);
+    printLeft(wKey, 16);
+    printLeft(sKey, 17);
+    printLeft(returnKey, 18);
 
     // Print actual menu
     switch (selection) {
         case 0:
-            printCentre(levelEasy, 10);
-            /*printCentre(levelMediumSelected, 11);
-            printCentre(levelHard, 12);
-            printCentre(levelInsane, 13);*/
+            printCentre(levelEasySelected, 15);
+            printCentre(levelMedium, 17);
+            printCentre(levelHard, 19);
+            printCentre(levelInsane, 21);
             break;
         case 1:
-            printCentre(levelEasy, 10);
-            /*printCentre(levelMedium, 11);
-            printCentre(levelHardSelected, 12);
-            printCentre(levelInsane, 13);*/
-            getch();
+            printCentre(levelEasy, 15);
+            printCentre(levelMediumSelected, 17);
+            printCentre(levelHard, 19);
+            printCentre(levelInsane, 21);
             break;
         case 2:
-            printCentre(levelEasy, 10);
-            /*printCentre(levelMedium, 11);
-            printCentre(levelHardSelected, 12);
-            printCentre(levelInsane, 13);*/
+            printCentre(levelEasy, 15);
+            printCentre(levelMedium, 17);
+            printCentre(levelHardSelected, 19);
+            printCentre(levelInsane, 21);
             break;
         case 3:
-            printCentre(levelEasy, 10);
-            /*printCentre(levelMedium, 11);
-            printCentre(levelHard, 12);
-            printCentre(levelInsaneSelected, 13);*/
+            printCentre(levelEasy, 15);
+            printCentre(levelMedium, 17);
+            printCentre(levelHard, 19);
+            printCentre(levelInsaneSelected, 21);
             break;
         default:
+            printXYCentre("AN ERROR HAS OCCURRED WHILE GENERATING THE MENU! Please try again!");
 
             break;
     }
 
+}
+
+void printLeft(char *str, short yCoord) {
+    setCursorPosition(0, yCoord);
+    printf(str);
+}
+
+void printError(char *msg) {
+
+    printMessage("!!! ERROR !!!", msg);
+
+    printf("\a");
+}
+
+void printMessage(char *title, char *msg) {
+    char *l1 = "  =====================================================================  ", // TWO SPACES AT THE END!
+         *l2 = "  ||                                                                 ||  ";
+
+        short yCoord = 12, height = 12;
+
+        for (short i = 0; i < height; i++) {
+            if (i == 0) {
+                printCentre(l1, yCoord);
+            } else if (i != height - 1) {
+                printCentre(l2, yCoord + i);
+            } else {
+                printCentre(l1, yCoord + i);
+            }
+        }
+
+        printCentre(title, yCoord + 2);
+        printCentre(msg, yCoord + 5);
+        printCentre("Hit [ ENTER ] to Continue!", height + yCoord + 2);
+        getchar();
+}
+
+void clearLines(short from, short to) {
+    for (short i = from; i < to + 1; i++) {
+        clearLine(i);
+    }
 }

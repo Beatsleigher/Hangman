@@ -125,4 +125,56 @@ void printWelcomeScreen();
 ///////////////////////////////////////
 void printMainMenu(int selection);
 
+///////////////////////////////////////
+/// \brief Prints any given text to the
+///         left side of the console at
+///         the given Y coords.
+///////////////////////////////////////
+void printLeft(char *str, short yCoord);
+
+///////////////////////////////////////
+/// \brief Prints an error in a cool
+///         retro-style message box.
+///////////////////////////////////////
+void printError(char *msg);
+
+///////////////////////////////////////
+/// \brief Prints a message in a cool
+///         retro-style message box.
+///////////////////////////////////////
+void printMessage(char *title, char *msg);
+
+///////////////////////////////////////
+/// \brief Clears all the lines between
+///         the from and to param values.
+///         Includes the actual lines, too.
+///////////////////////////////////////
+void clearLines(short from, short to);
+
+///////////////////////////////////////
+/// \brief Prints a message similar to
+///         the \see printMessage
+///         function. The main difference,
+///         is that this function will
+///         print multiple lines (max 5)
+///         in to the message box.
+///         This is idea when displaying
+///         complex errors and
+///         notifications.
+///////////////////////////////////////
+void printMultilineMsg(char *title, char lines[5][61]);
+
+///////////////////////////////////////
+/// \brief Prints a message similar to
+///         the \see printError
+///         function. The main difference,
+///         is that this function will
+///         print multiple lines (max 5)
+///         in to the message box.
+///         This is idea when displaying
+///         complex errors and
+///         notifications.
+///////////////////////////////////////
+void printMultilineError(char lines[5][61]);
+
 #endif // UI_H_INCLUDED
