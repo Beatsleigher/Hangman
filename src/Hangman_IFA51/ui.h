@@ -8,6 +8,7 @@
 #define UI_H_INCLUDED
 
 #include <windows.h>
+#include <stdbool.h>
 
 ///////////////////////////////////////
 /// \brief Gets the length of the console
@@ -162,7 +163,7 @@ void clearLines(short from, short to);
 ///         complex errors and
 ///         notifications.
 ///////////////////////////////////////
-void printMultilineMsg(char *title, char lines[5][61]);
+void printMultilineMsg(char *title, char lines[5][60]);
 
 ///////////////////////////////////////
 /// \brief Prints a message similar to
@@ -175,6 +176,27 @@ void printMultilineMsg(char *title, char lines[5][61]);
 ///         complex errors and
 ///         notifications.
 ///////////////////////////////////////
-void printMultilineError(char lines[5][61]);
+void printMultilineError(char lines[5][60]);
+
+///////////////////////////////////////
+/// \brief Shows a skull and crossbones,
+///         and text saying "game over".
+///         Indicates EOG.
+///////////////////////////////////////
+void showGameOver();
+
+///////////////////////////////////////
+/// \brief Shows the loading screen.
+///         Shown immediately before
+///         actual game screen is shown.
+///////////////////////////////////////
+void showLoadingScreen();
+
+///////////////////////////////////////
+/// \brief Shows a choice dialog, where
+///         the user can choose what to
+///         do.
+///////////////////////////////////////
+bool showChoiceDialog(char *title, char msg[5][60], char *okButton, char *cancelButton);
 
 #endif // UI_H_INCLUDED

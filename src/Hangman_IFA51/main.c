@@ -16,10 +16,10 @@
 #include "systemio.h"
 #include "words.h"
 #include "ui.h"
+#include "game.h"
 
 int main() {
 
-    char *welcome = "Welcome to Hangman";
     char *by = "By Simon C., Patrick M., Sergey S.";
 
     //printXYCentre(welcome);
@@ -28,6 +28,17 @@ int main() {
     printBottomCentre("Initializing... please wait...");
 
     printProgressBar(20, 0);
+
+    // Testing
+    char testCase[5][60];
+    strcpy(testCase[0], "Hallo");
+    strcpy(testCase[1], "Ich bin eine Nachricht");
+    strcpy(testCase[2], "Willst du mein Freund sein?");
+    strcpy(testCase[3], "Ich bin so traurig... :(");
+    strcpy(testCase[4], "Nein, Spaﬂ. Du bist ein Wichser.");
+    printMultilineError(testCase);
+
+    return 0;
 
     // Create directories needed by the program
     createDirectories();
@@ -63,7 +74,12 @@ int main() {
 
     // Clear screen and send user to main menu
     clearScreen();
-    int levelSelection = showGameMenu();
+    showGameMenu();
+
+    showGameOver();
+    Sleep(5000);
+
+    executeGame();
 
     return 0;
 }

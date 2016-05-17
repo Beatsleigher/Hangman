@@ -44,7 +44,7 @@ int showGameMenu() {
     // Read character. Wait for arrow keys.
     do {
         charKey = _getch();
-        printf("%i", charKey);
+        //printf("%i", charKey);
         if (charKey == UP_ARROW) {
             switch (selectedLevel) {
                 case 0: // Level easy
@@ -144,7 +144,7 @@ int showGameMenu() {
         }
     } while (charKey != RETURN_KEY);
 
-    return 0;
+    return selectedLevel;
 }
 
 void executeGame() {

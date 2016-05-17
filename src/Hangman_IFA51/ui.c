@@ -20,6 +20,7 @@
 #include <windowsx.h>
 #include <sys/param.h>
 #include <conio.h>
+#include <stdbool.h>
 
 int getConsoleLen() {
     CONSOLE_SCREEN_BUFFER_INFO csbi;
@@ -408,4 +409,83 @@ void clearLines(short from, short to) {
     for (short i = from; i < to + 1; i++) {
         clearLine(i);
     }
+}
+
+void printMultilineMsg(char *title, char lines[5][60]) {
+    char *l1 = "  =====================================================================  ", // TWO SPACES AT THE END!
+         *l2 = "  ||                                                                 ||  ";
+
+        short yCoord = 12, height = 12;
+
+        for (short i = 0; i < height; i++) {
+            if (i == 0) {
+                printCentre(l1, yCoord);
+            } else if (i != height - 1) {
+                printCentre(l2, yCoord + i);
+            } else {
+                printCentre(l1, yCoord + i);
+            }
+        }
+
+        printCentre(title, yCoord + 2);
+
+        for (int i = 0; i < sizeof(lines) / sizeof(lines[0]); i++) {
+            printCentre(lines[i], yCoord + i + 5);
+        }
+
+        printCentre("Hit [ ENTER ] to Continue!", height + yCoord + 2);
+        getchar();
+}
+
+void printMultilineError(char lines[5][60]) {
+    printMultilineMsg("!!! ERROR !!!", lines);
+}
+
+void showGameOver() {
+    char skullCrossBones[22][60];
+    char gameOver[5][60];
+    strcpy(skullCrossBones[0],  "...                  ... MNO! ...                  ");
+    strcpy(skullCrossBones[1],  "   ..... MNO!! ...................... MNNOO! ...   ");
+    strcpy(skullCrossBones[2],  " ..... MMNO! ......................... MNNOO!! .   ");
+    strcpy(skullCrossBones[3],  "..... MNOONNOO!   MMMMMMMMMMPPPOII!   MNNO!!!! .   ");
+    strcpy(skullCrossBones[4],  " ... !O! NNO! MMMMMMMMMMMMMPPPOOOII!! NO! ....     ");
+    strcpy(skullCrossBones[5],  "    ...... ! MMMMMMMMMMMMMPPPPOOOOIII! ! ...       ");
+    strcpy(skullCrossBones[6],  "   ........ MMMMMMMMMMMMPPPPPOOOOOOII!! .....      ");
+    strcpy(skullCrossBones[7],  "   ........ MMMMMOOOOOOPPPPPPPPOOOOMII! ...        ");
+    strcpy(skullCrossBones[8],  "    ....... MMMMM..    OPPMMP    .,OMI! ....       ");
+    strcpy(skullCrossBones[9],  "     ...... MMMM::   o.,OPMP,.o   ::I!! ...        ");
+    strcpy(skullCrossBones[10], "         .... NNM:::.,,OOPM!P,.::::!! ....         ");
+    strcpy(skullCrossBones[11], "          .. MMNNNNNOOOOPMO!!IIPPO!!O! .....       ");
+    strcpy(skullCrossBones[12], "         ... MMMMMNNNNOO:!!:!!IPPPPOO! ....        ");
+    strcpy(skullCrossBones[13], "           .. MMMMMNNOOMMNNIIIPPPOO!! ......       ");
+    strcpy(skullCrossBones[14], "          ...... MMMONNMMNNNIIIOO!..........       ");
+    strcpy(skullCrossBones[15], "       ....... MN MOMMMNNNIIIIIO! OO ..........    ");
+    strcpy(skullCrossBones[16], "    ......... MNO! IiiiiiiiiiiiI OOOO ...........  ");
+    strcpy(skullCrossBones[17], "  ...... NNN.MNO! . O!!!!!!!!!O . OONO NO! ........");
+    strcpy(skullCrossBones[18], "   .... MNNNNNO! ...OOOOOOOOOOO .  MMNNON!........ ");
+    strcpy(skullCrossBones[19], "   ...... MNNNNO! .. PPPPPPPPP .. MMNON!........   ");
+    strcpy(skullCrossBones[20], "      ...... OO! ................. ON! .......     ");
+    strcpy(skullCrossBones[21], "         ...........                               ");
+
+    strcpy(gameOver[0],  "  ___    __    __  __  ____    _____  _  _  ____  ____ ");
+    strcpy(gameOver[1],  " / __)  /__\\  (  \\/  )( ___)  (  _  )( \\/ )( ___)(  _ \\");
+    strcpy(gameOver[2],  "( (_-. /(__)\\  )    (  )__)    )(_)(  \\  /  )__)  )   /");
+    strcpy(gameOver[3],  " \\___/(__)(__)(_/\\/\\_)(____)  (_____)  \\/  (____)(_)\\_)");
+
+    clearLines(3, 29);
+    for (int i = 0; i < sizeof(skullCrossBones) / sizeof(skullCrossBones[0]); i++) {
+        printCentre(skullCrossBones[i], i + 4);
+    }
+
+    for (int i = 0; i < sizeof(gameOver) / sizeof(gameOver[0]); i++) {
+        printCentre(gameOver[i], i + 26);
+    }
+
+}
+
+void showLoadingScreen() {
+}
+
+bool showChoiceDialog(char *title, char msg[5][60], char *okButton, char *cancelButton) {
+    return false;
 }
