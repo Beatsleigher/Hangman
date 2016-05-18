@@ -137,7 +137,7 @@ struct WordCategories getWords() {
     for (int i = 0; i < sizeof(filePaths) / sizeof(filePaths[0]); i++) {
 
         FILE *fPointer;
-        char *read;
+        char read[256];
         int index = 0;
         char wordContainer[5000][150];
 
@@ -151,47 +151,10 @@ struct WordCategories getWords() {
 
         // Re-coding.
         // Apparently the fucker doesn't work...
-        // (c) Iron@Stackoverflow.com
-        int maximumLineLength = 128;
-        char *lineBuffer = (char *)malloc(sizeof(char) * maximumLineLength);
 
-        if (lineBuffer == NULL) {
-            printError("Error allocating memory for line buffer.");
-            exit(0x003);
+        while (fgets(read, sizeof(read), fPointer)) {
+            printRight(read, 6);
         }
-
-        char ch = getc(fPointer);
-        int count = 0;
-
-        do {
-            while ((ch != '\n') && (ch != EOF)) {
-                if (count == maximumLineLength) {
-                    maximumLineLength += 128;
-                    lineBuffer = realloc(lineBuffer, maximumLineLength);
-                    if (lineBuffer == NULL) {
-                        printError("Error reallocating space for line buffer.");
-                        exit(0x004);
-                    }
-                }
-                lineBuffer[count] = ch;
-                count++;
-
-                ch = getc(fPointer);
-            }
-
-            lineBuffer[count] = '\0';
-            char line[count + 1];
-            strncpy(line, lineBuffer, (count + 1));
-            free(lineBuffer);
-            const char *constLine = line;
-
-            // Test code
-            printRight(constLine, 6);
-            Sleep(750);
-            clearLine(6);
-        } while (ch != EOF);
-
-
 
         fclose(fPointer);
 
