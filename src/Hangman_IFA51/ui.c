@@ -90,7 +90,9 @@ void printProgressBar(int percent, int startFrom) {
     for (int i = startFrom; i < percent + 1; i++) {
             Sleep(50);
         setCursorPosition(i, getConsoleHeight() - getConsoleHeight());
-        printf("\u00b2"); // TODO: Figure out how to print dark shade...
+//        printf("\xDB"); // Full block
+//        printf("\xDC"); // Lower half block
+        printf("\xDF"); // Upper half block
     }
 }
 
@@ -294,7 +296,7 @@ void printWelcomeScreen() {
 void printMainMenu(int selection) {
     //clearScreen();
     //system("cls");
-    clearLines(10, 21);
+    //clearLines(10, 21);
     char l15[91] = "M\"\"MMMMM\"\"MM MMP\"\"\"\"\"\"\"MM M\"\"\"\"\"\"\"`YM MM'\"\"\"\"\"`MM M\"\"\"\"\"`'\"\"\"`YM MMP\"\"\"\"\"\"\"MM M\"\"\"\"\"\"\"`YM ",
     l16[91] = "M  MMMMM  MM M' .mmmm  MM M  mmmm.  M M' .mmm. `M M  mm.  mm.  M M' .mmmm  MM M  mmmm.  M ",
     l17[91] = "M         `M M         `M M  MMMMM  M M  MMMMMMMM M  MMM  MMM  M M         `M M  MMMMM  M ",
@@ -303,7 +305,9 @@ void printMainMenu(int selection) {
     l20[91] = "M  MMMMM  MM M  MMMMM  MM M  MMMMM  M MM.     .MM M  MMM  MMM  M M  MMMMM  MM M  MMMMM  M ",
     l21[91] = "MMMMMMMMMMMM MMMMMMMMMMMM MMMMMMMMMMM MMMMMMMMMMM MMMMMMMMMMMMMM MMMMMMMMMMMM MMMMMMMMMMM ",
     *levelSelectionUp = "######################################",
-    *levelSelection =   "#            LEVEL SELECTION         #",
+    *levelSelection =   "#           LEVEL SELECTION          #",
+//    *levelSelectionUp = "\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB",
+//    *levelSelection =   "\xDB           LEVEL SELECTION          \xDB",
     *levelEasy = "EASY\n",
     *levelEasySelected = ">> EASY <<\n",
     *levelMedium = "MEDIUM\n",
@@ -336,6 +340,13 @@ void printMainMenu(int selection) {
     printLeft(wKey, 16);
     printLeft(sKey, 17);
     printLeft(returnKey, 18);
+
+    // Clear menu items
+    // Just print whitespace.
+    printCentre("            ", 15);
+    printCentre("            ", 17);
+    printCentre("            ", 19);
+    printCentre("            ", 21);
 
     // Print actual menu
     switch (selection) {
@@ -411,7 +422,7 @@ void clearLines(short from, short to) {
     }
 }
 
-void printMultilineMsg(char *title, char lines[5][60]) {
+void printMultilineMsg(char *title, char lines[5][60], short linesPassed) {
     char *l1 = "  =====================================================================  ", // TWO SPACES AT THE END!
          *l2 = "  ||                                                                 ||  ";
 
@@ -429,7 +440,8 @@ void printMultilineMsg(char *title, char lines[5][60]) {
 
         printCentre(title, yCoord + 2);
 
-        for (int i = 0; i < sizeof(lines) / sizeof(lines[0]); i++) {
+        for (int i = 0; i < linesPassed; i++) { // 5 was hardcoded, because that's the max. amount of lines for the array...
+            //printBottomCentre("Test " + i);
             printCentre(lines[i], yCoord + i + 5);
         }
 
@@ -437,8 +449,8 @@ void printMultilineMsg(char *title, char lines[5][60]) {
         getchar();
 }
 
-void printMultilineError(char lines[5][60]) {
-    printMultilineMsg("!!! ERROR !!!", lines);
+void printMultilineError(char lines[5][60], short linesPassed) {
+    printMultilineMsg("!!! ERROR !!!", lines, linesPassed);
 }
 
 void showGameOver() {
@@ -484,8 +496,47 @@ void showGameOver() {
 }
 
 void showLoadingScreen() {
+    clearScreen();
+
+    short height = (short)getConsoleHeight() / 2;
+
+    printCentre("M\"\"MMMMMMMM MMP\"\"\"\"\"YMM MMP\"\"\"\"\"\"\"MM M\"\"\"\"\"\"'YMM M\"\"M M\"\"\"\"\"\"\"`YM MM'\"\"\"\"\"`MM ", height - 3);
+    printCentre("M  MMMMMMMM M' .mmm. `M M' .mmmm  MM M  mmmm. `M M  M M  mmmm.  M M' .mmm. `M ", height - 2);
+    printCentre("M  MMMMMMMM M  MMMMM  M M         `M M  MMMMM  M M  M M  MMMMM  M M  MMMMMMMM ", height - 1);
+    printCentre("M  MMMMMMMM M  MMMMM  M M  MMMMM  MM M  MMMMM  M M  M M  MMMMM  M M  MMM   `M ", height);
+    printCentre("M  MMMMMMMM M. `MMM' .M M  MMMMM  MM M  MMMM' .M M  M M  MMMMM  M M. `MMM' .M ", height + 1);
+    printCentre("M         M MMb     dMM M  MMMMM  MM M       .MM M  M M  MMMMM  M MM.     .MM ", height + 2);
+    printCentre("MMMMMMMMMMM MMMMMMMMMMM MMMMMMMMMMMM MMMMMMMMMMM MMMM MMMMMMMMMMM MMMMMMMMMMM ", height + 3);
+
+    printCentre("Please wait while contents are being loaded and selected...", height + 6);
+
 }
 
 bool showChoiceDialog(char *title, char msg[5][60], char *okButton, char *cancelButton) {
+    // TODO: Add logic
     return false;
+}
+
+void setForegoundColour(WORD colour) {
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    SetConsoleTextAttribute(hConsole, colour);
+}
+
+void setBackgroundColour(WORD colour) { // I know, seemingly redundant, but makes things more comprehensive.
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    SetConsoleTextAttribute(hConsole, colour);
+}
+
+void resetConsoleColours() {
+    system("color 0a");
+}
+
+void printStatusBar() {
+    for (int i = 0; i < getConsoleLen(); i++) {
+        setCursorPosition(i, getConsoleHeight());
+        printf("\xDB");
+    }
+    setCursorPosition(getConsoleLen() / 2, getConsoleHeight() - 1);
 }

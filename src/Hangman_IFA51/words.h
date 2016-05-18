@@ -20,4 +20,10 @@ typedef struct WordCategories WordCategories;
 ///////////////////////////////////////
 struct WordCategories getWords();
 
+///////////////////////////////////////
+/// \brief Struct containing all the
+/// words loaded.
+///////////////////////////////////////
+struct WordCategories loadedWords;
+
 #endif // WORDS_H_INCLUDED

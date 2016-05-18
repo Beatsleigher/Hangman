@@ -9,6 +9,7 @@
 // Project includes
 #include "systemio.h"
 #include "words.h"
+#include "ui.h"
 
 // System includes
 #include <windows.h>
@@ -51,9 +52,9 @@ struct WordCategories getWords() {
                 switch (i) {
                     case 0:
                         // Level easy
-                        _fullpath(canonPath, "..\\words\\level_easy", 265);
+                        _fullpath(canonPath, "..\\words\\level_easy", 265); // "Implicit declaration". BULLSHIT. It's located in stdlib.h!
                         //printf("%s...", canonPath);
-                        if (access(&canonPath, F_OK) != -1) {
+                        if (access(canonPath, F_OK) != -1) {
                             //printf("Exists!\n");
                         } else {
                             //printf("Doesn't exist!\n");
@@ -68,9 +69,9 @@ struct WordCategories getWords() {
                         break;
                     case 1:
                         // Level medium
-                        _fullpath(canonPath, "..\\words\\level_medium", 265);
+                        _fullpath(canonPath, "..\\words\\level_medium", 265); // Same here
                         //printf("%s...", canonPath);
-                        if (access(&canonPath, F_OK) != -1) {
+                        if (access(canonPath, F_OK) != -1) {
                             //printf("Exists!\n");
                         } else {
                             //printf("Doesn't exist!\n");
@@ -87,7 +88,7 @@ struct WordCategories getWords() {
                         // Level hard
                         _fullpath(canonPath, "..\\words\\level_hard", 265);
                         //printf("%s...", canonPath);
-                        if (access(&canonPath, F_OK) != -1) {
+                        if (access(canonPath, F_OK) != -1) {
                             //printf("Exists!\n");
                         } else {
                             //printf("Doesn't exist!\n");
@@ -104,7 +105,7 @@ struct WordCategories getWords() {
                         // Level insane
                         _fullpath(canonPath, "..\\words\\level_insane", 265);
                         //printf("%s...", canonPath);
-                        if (access(&canonPath, F_OK) != -1) {
+                        if (access(canonPath, F_OK) != -1) {
                             //printf("Exists!\n");
                         } else {
                             //printf("Doesn't exist!\n");
@@ -128,9 +129,8 @@ struct WordCategories getWords() {
     for (int i = 0; i < sizeof(filePaths) / sizeof(filePaths[0]); i++) {
 
         FILE *fPointer;
-        char *line;
-        size_t len = 0;
-        ssize_t read;
+        char *line = NULL;
+        char *read;
         int index = 0;
         char wordContainer[5000][150];
 
@@ -144,14 +144,14 @@ struct WordCategories getWords() {
 
         switch (i) {
             case 0:
-                while ((read = fgets(line, 256, fPointer)) != NULL) {
+                while (fgets(line, 256, fPointer) != NULL) {
                         if (line == NULL) {
                             printRight("ERROR: LINE IS NULL!", 4);
                             char lineMsg[150];
                             sprintf(lineMsg, "Line: %i", index);
                             printRight(lineMsg, 5);
                         } else {
-                            strcpy(wordContainer[index], *line);
+                            strcpy(wordContainer[index], line);
                             printf(wordContainer[index]);
                         }
                         index++;
@@ -168,7 +168,7 @@ struct WordCategories getWords() {
                             sprintf(lineMsg, "Line: %i", index);
                             printRight(lineMsg, 5);
                         } else {
-                            strcpy(wordContainer[index], *line);
+                            strcpy(wordContainer[index], line);
                             printf(wordContainer[index]);
                         }
                         index++;
@@ -185,7 +185,7 @@ struct WordCategories getWords() {
                             sprintf(lineMsg, "Line: %i", index);
                             printRight(lineMsg, 5);
                         } else {
-                            strcpy(wordContainer[index], *line);
+                            strcpy(wordContainer[index], line);
                             printf(wordContainer[index]);
                         }
                         index++;
@@ -202,7 +202,7 @@ struct WordCategories getWords() {
                             sprintf(lineMsg, "Line: %i", index);
                             printRight(lineMsg, 5);
                         } else {
-                            strcpy(wordContainer[index], *line);
+                            strcpy(wordContainer[index], line);
                             printf(wordContainer[index]);
                         }
                         index++;

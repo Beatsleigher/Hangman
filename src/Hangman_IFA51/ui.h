@@ -163,7 +163,7 @@ void clearLines(short from, short to);
 ///         complex errors and
 ///         notifications.
 ///////////////////////////////////////
-void printMultilineMsg(char *title, char lines[5][60]);
+void printMultilineMsg(char *title, char lines[5][60], short linesPassed);
 
 ///////////////////////////////////////
 /// \brief Prints a message similar to
@@ -176,7 +176,7 @@ void printMultilineMsg(char *title, char lines[5][60]);
 ///         complex errors and
 ///         notifications.
 ///////////////////////////////////////
-void printMultilineError(char lines[5][60]);
+void printMultilineError(char lines[5][60], short linesPassed);
 
 ///////////////////////////////////////
 /// \brief Shows a skull and crossbones,
@@ -198,5 +198,31 @@ void showLoadingScreen();
 ///         do.
 ///////////////////////////////////////
 bool showChoiceDialog(char *title, char msg[5][60], char *okButton, char *cancelButton);
+
+///////////////////////////////////////
+/// \brief Sets the text (foreground)
+///         colour in the console window.
+///////////////////////////////////////
+void setForegoundColour(WORD colour);
+
+///////////////////////////////////////
+/// \brief Sets the background colour
+///         in the console window.
+///////////////////////////////////////
+void setBackgroundColour(WORD colour);
+
+///////////////////////////////////////
+/// \brief Resets the colours of the
+///         console window to their
+///         defaults for this application.
+///////////////////////////////////////
+void resetConsoleColours();
+
+///////////////////////////////////////
+/// \brief  Prints a bar at the bottom
+///         of the screen for status
+///         messages and such.
+///////////////////////////////////////
+void printStatusBar();
 
 #endif // UI_H_INCLUDED

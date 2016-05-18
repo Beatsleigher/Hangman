@@ -24,7 +24,7 @@
 	"systemio.h"
 	<windows.h>
 
-1463065203 source:c:\users\sc\documents\git\_hangman\src\hangman_ifa51\systemio.c
+1463580303 source:c:\users\sc\documents\git\_hangman\src\hangman_ifa51\systemio.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -37,10 +37,10 @@
 	<stdio.h>
 	"systemio.h"
 
-1463064390 c:\users\sc\documents\git\_hangman\src\hangman_ifa51\systemio.h
+1463570180 c:\users\sc\documents\git\_hangman\src\hangman_ifa51\systemio.h
 	<stdbool.h>
 
-1463501741 source:c:\users\sc\documents\git\_hangman\src\hangman_ifa51\main.c
+1463577617 source:c:\users\sc\documents\git\_hangman\src\hangman_ifa51\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -50,6 +50,7 @@
 	"systemio.h"
 	"words.h"
 	"ui.h"
+	"game.h"
 
 1462366809 c:\users\sc\documents\git\_hangman\src\hangman_ifa51\main.h
 
@@ -57,11 +58,12 @@
 	"systemio.h"
 	<windows.h>
 
-1462970837 c:\users\sc\documents\git\_hangman\src\hangman_ifa51\words.h
+1463570170 c:\users\sc\documents\git\_hangman\src\hangman_ifa51\words.h
 
-1463145011 source:c:\users\sc\documents\git\_hangman\src\hangman_ifa51\words.c
+1463579810 source:c:\users\sc\documents\git\_hangman\src\hangman_ifa51\words.c
 	"systemio.h"
 	"words.h"
+	"ui.h"
 	<windows.h>
 	<stdio.h>
 	<stdlib.h>
@@ -72,11 +74,11 @@
 	<windowsx.h>
 	<sys/param.h>
 
-1463501997 c:\users\sc\documents\git\_hangman\src\hangman_ifa51\ui.h
+1463580595 c:\users\sc\documents\git\_hangman\src\hangman_ifa51\ui.h
 	<windows.h>
 	<stdbool.h>
 
-1463501998 source:c:\users\sc\documents\git\_hangman\src\hangman_ifa51\ui.c
+1463569239 source:c:\users\sc\documents\git\_hangman\src\hangman_ifa51\ui.c
 	"ui.h"
 	"systemio.h"
 	"words.h"
@@ -92,9 +94,11 @@
 	<conio.h>
 	<stdbool.h>
 
-1463497807 source:c:\users\sc\documents\git\_hangman\src\hangman_ifa51\game.c
+1463580788 source:c:\users\sc\documents\git\_hangman\src\hangman_ifa51\game.c
 	"game.h"
 	"ui.h"
+	"words.h"
+	"systemio.h"
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -107,6 +111,8 @@
 	<stdio.h>
 	<conio.h>
 
-1463498342 c:\users\sc\documents\git\_hangman\src\hangman_ifa51\game.h
+1463577103 c:\users\sc\documents\git\_hangman\src\hangman_ifa51\game.h
 	<stdbool.h>
+	"systemio.h"
+	"words.h"
 

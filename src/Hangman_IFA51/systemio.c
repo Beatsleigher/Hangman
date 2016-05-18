@@ -49,10 +49,6 @@ bool wordFileExists() {
 
 }
 
-//void downloadWordsFile() {
-//    InternetOpen();                   // OBSOLETE
-//}
-
 void saveWordsFile() {
 
 }
@@ -62,17 +58,6 @@ void readWords(struct WordCategories *wordCats) {
 }
 
 void createDirectories() {
-
-int getConsoleXLen() {
-    CONSOLE_SCREEN_BUFFER_INFO csbi;
-    int columns, rows;
-
-    GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
-    columns = csbi.srWindow.Right - csbi.srWindow.Left + 1;
-    rows = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
-
-    return columns;
-}
 
     char filePath[2][128];
 
@@ -104,4 +89,14 @@ int getConsoleXLen() {
 
     }
 
+}
+
+int getConsoleXLen() {
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+    int columns;
+
+    GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
+    columns = csbi.srWindow.Right - csbi.srWindow.Left + 1;
+
+    return columns;
 }

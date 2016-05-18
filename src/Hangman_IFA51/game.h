@@ -9,6 +9,10 @@
 
 #include <stdbool.h>
 
+// Project includes
+#include "systemio.h"
+#include "words.h"
+
 ///////////////////////////////////////
 /// \brief Shows the menu for the game.
 ///////////////////////////////////////
@@ -30,6 +34,6 @@ int selectedLevel;
 ///////////////////////////////////////
 /// \brief Executes the game (loop).
 ///////////////////////////////////////
-void executeGame();
+void executeGame(struct WordCategories words);
 
 #endif // GAME_H_INCLUDED

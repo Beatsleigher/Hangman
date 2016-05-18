@@ -20,25 +20,37 @@
 
 int main() {
 
+    // Clear screen at very beginning to ensure clean output
+    system("cls");
+
     char *by = "By Simon C., Patrick M., Sergey S.";
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
+    WORD saved_attributes;
 
     //printXYCentre(welcome);
     printCentre(by, getConsoleHeight() / 2);
 
     printBottomCentre("Initializing... please wait...");
 
+    // Save current attributes
+    GetConsoleScreenBufferInfo(hConsole, &consoleInfo);
+    saved_attributes = consoleInfo.wAttributes;
+
+    // Set console code page
+//    SetConsoleOutputCP(CP_UTF8); // BIG NOPE
+
+    // Set console window
+    SetConsoleTitle("Hangman");
+
+    // Set more console attributes
+//    SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN);
+    // Easier solution
+    system("color 0a"); // Set console colour to black background, light green text
+
     printProgressBar(20, 0);
 
     // Testing
-    char testCase[5][60];
-    strcpy(testCase[0], "Hallo");
-    strcpy(testCase[1], "Ich bin eine Nachricht");
-    strcpy(testCase[2], "Willst du mein Freund sein?");
-    strcpy(testCase[3], "Ich bin so traurig... :(");
-    strcpy(testCase[4], "Nein, Spaﬂ. Du bist ein Wichser.");
-    printMultilineError(testCase);
-
-    return 0;
 
     // Create directories needed by the program
     createDirectories();
@@ -48,6 +60,7 @@ int main() {
     // Check if word files exist.
     struct WordCategories wordCategories;
     wordCategories = getWords();
+    loadedWords = wordCategories;
 
     printProgressBar(75, 50);
 
@@ -76,10 +89,10 @@ int main() {
     clearScreen();
     showGameMenu();
 
-    showGameOver();
-    Sleep(5000);
+    executeGame(wordCategories);
 
-    executeGame();
+    // Restore saved console attrs. Saves us from getting warnings
+    SetConsoleTextAttribute(hConsole, saved_attributes);
 
     return 0;
 }

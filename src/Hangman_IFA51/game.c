@@ -16,6 +16,8 @@
 // Project includes
 #include "game.h"
 #include "ui.h"
+#include "words.h"
+#include "systemio.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -147,8 +149,53 @@ int showGameMenu() {
     return selectedLevel;
 }
 
-void executeGame() {
+void executeGame(struct WordCategories words) {
+    runGame = true;
+    char errorLines[5][60];
+
+    /**
+        Jump in to the game loop.
+        This is where most of the magic happens.
+        This loop will be continued until the user wants to quit the game.
+     */
     while (runGame) {
+
+        // Show loading screen and load stuff for the game..
+        showLoadingScreen();
+
+        // Show status at the bottom of the screen.
+        printStatusBar();
+        getchar();
+
+        // Plant seed
+        srand(468164894);
+
+
+
+        // Randomly choose a word, depending on the level selected.
+        char *randomWord = "";
+        switch (selectedLevel) {
+            case 0: // Level easy
+                strcpy(randomWord, words.easyWords[rand() % 1200]);
+                break;
+            case 1: // Level medium
+                strcpy(randomWord, words.mediumWords[rand() % 1200]);
+                break;
+            case 2: // level hard
+                strcpy(randomWord, words.hardWords[rand() % 1200]);
+                break;
+            case 3: // Level insane.
+                strcpy(randomWord, words.insaneWords[rand() % 1200]);
+                break;
+            default:
+                strcpy(errorLines[0], "An error has occurred.");
+                strcpy(errorLines[1], "Could not locate the selected level!");
+                strcpy(errorLines[2], "Will exit to main menu!");
+                //printMultilineError(errorLines, 3);
+        }
+
+        printBottomCentre(randomWord);
+        break;
 
     }
 }

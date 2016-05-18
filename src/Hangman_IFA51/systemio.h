@@ -23,6 +23,12 @@ struct WordCategories {
     char insaneWords[200][125]; // This. IS. SPARTAAA
 };
 
+///////////////////////////////////////
+/// \brief Declare type, as to make
+///         programming easier.
+///////////////////////////////////////
+typedef struct WordCategories WordCategories;
+
 //#========== Methods and Functions ==========#
 
 ///////////////////////////////////////
