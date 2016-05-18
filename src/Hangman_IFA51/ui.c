@@ -317,9 +317,9 @@ void printMainMenu(int selection) {
     *levelInsane= "INSANE\n",
     *levelInsaneSelected = ">> INSANE <<\n",
     *instructionText = "CONTROLS:",
-    *wKey = "\tW / UP -> Cursor Up",
-    *sKey = "\tS / DOWN -> Cursor Down",
-    *returnKey = "\tENTER -> Confirm Selection";
+    *wKey = "\tW / UP\t\t-> Cursor Up",
+    *sKey = "\tS / DOWN\t-> Cursor Down",
+    *returnKey = "\tENTER\t\t-> Confirm Selection";
 
     // Print title to top of screen
     printCentre(l15, 1);
@@ -535,8 +535,18 @@ void resetConsoleColours() {
 
 void printStatusBar() {
     for (int i = 0; i < getConsoleLen(); i++) {
-        setCursorPosition(i, getConsoleHeight());
+        setCursorPosition(i, getConsoleHeight() - 1);
         printf("\xDB");
+        setCursorPosition(i, 0); // Prevent screen from jumping up and down
     }
     setCursorPosition(getConsoleLen() / 2, getConsoleHeight() - 1);
+}
+
+void printStatusBarMsg(char *msg) {
+    printStatusBar();
+    printCentre(msg, getConsoleHeight() - 1);
+}
+
+void clearStatusBar() {
+    clearLine(getConsoleHeight() - 1);
 }

@@ -134,7 +134,7 @@ struct WordCategories getWords() {
         int index = 0;
         char wordContainer[5000][150];
 
-        //printRight(filePaths[i], 3);
+        printRight(filePaths[i], 3);
 
         fPointer = fopen(filePaths[i], "r");
         if (fPointer == NULL) {
@@ -142,78 +142,9 @@ struct WordCategories getWords() {
             exit(0x002);
         }
 
-        switch (i) {
-            case 0:
-                while (fgets(line, 256, fPointer) != NULL) {
-                        if (line == NULL) {
-                            printRight("ERROR: LINE IS NULL!", 4);
-                            char lineMsg[150];
-                            sprintf(lineMsg, "Line: %i", index);
-                            printRight(lineMsg, 5);
-                        } else {
-                            strcpy(wordContainer[index], line);
-                            printf(wordContainer[index]);
-                        }
-                        index++;
-                }
-                for (int i = 0; i < sizeof(words.easyWords) / sizeof(words.easyWords[0]); i++) {
-                    strcpy(words.easyWords[i], wordContainer[i]);
-                }
-                break;
-            case 1:
-                while ((read = fgets(line, 256, fPointer)) != NULL) {
-                        if (line == NULL) {
-                            printRight("ERROR: LINE IS NULL!", 4);
-                            char lineMsg[150];
-                            sprintf(lineMsg, "Line: %i", index);
-                            printRight(lineMsg, 5);
-                        } else {
-                            strcpy(wordContainer[index], line);
-                            printf(wordContainer[index]);
-                        }
-                        index++;
-                }
-                for (int i = 0; i < sizeof(words.mediumWords) / sizeof(words.mediumWords[0]); i++) {
-                    strcpy(words.mediumWords[i], wordContainer[i]);
-                }
-                break;
-            case 2:
-                while ((read = fgets(line, 256, fPointer)) != NULL) {
-                        if (line == NULL) {
-                            printRight("ERROR: LINE IS NULL!", 4);
-                            char lineMsg[150];
-                            sprintf(lineMsg, "Line: %i", index);
-                            printRight(lineMsg, 5);
-                        } else {
-                            strcpy(wordContainer[index], line);
-                            printf(wordContainer[index]);
-                        }
-                        index++;
-                }
-                for (int i = 0; i < sizeof(words.hardWords) / sizeof(words.hardWords[0]); i++) {
-                    strcpy(words.hardWords[i], wordContainer[i]);
-                }
-                break;
-            case 3:
-                while ((read = fgets(line, 256, fPointer)) != NULL) {
-                        if (line == NULL) {
-                            printRight("ERROR: LINE IS NULL!", 4);
-                            char lineMsg[150];
-                            sprintf(lineMsg, "Line: %i", index);
-                            printRight(lineMsg, 5);
-                        } else {
-                            strcpy(wordContainer[index], line);
-                            printf(wordContainer[index]);
-                        }
-                        index++;
-                }
-                for (int i = 0; i < sizeof(words.insaneWords) / sizeof(words.insaneWords[0]); i++) {
-                    strcpy(words.insaneWords[i], wordContainer[i]);
-                }
-                break;
-            default:
-                break;
-        }
+        // Re-coding.
+        // Apparently the fucker doesn't work...
+
 
         fclose(fPointer);
 

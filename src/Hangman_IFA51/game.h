@@ -14,25 +14,25 @@
 #include "words.h"
 
 ///////////////////////////////////////
-/// \brief Shows the menu for the game.
+/// \brief  Shows the menu for the game.
 ///////////////////////////////////////
 int showGameMenu();
 
 ///////////////////////////////////////
-/// \brief A value indicating whether
+/// \brief  A value indicating whether
 ///         the game should continue
 ///         running or not.
 ///////////////////////////////////////
 bool runGame;
 
 ///////////////////////////////////////
-/// \brief Indicates the level that the
+/// \brief  Indicates the level that the
 ///         player selected.
 ///////////////////////////////////////
 int selectedLevel;
 
 ///////////////////////////////////////
-/// \brief Executes the game (loop).
+/// \brief  Executes the game (loop).
 ///////////////////////////////////////
 void executeGame(struct WordCategories words);
 

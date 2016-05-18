@@ -10,19 +10,19 @@
 
 
 ///////////////////////////////////////
-/// \brief Declare type, as to make
+/// \brief  Declare type, as to make
 ///         programming easier.
 ///////////////////////////////////////
 typedef struct WordCategories WordCategories;
 
 ///////////////////////////////////////
-/// \brief Method template
+/// \brief  Method template
 ///////////////////////////////////////
 struct WordCategories getWords();
 
 ///////////////////////////////////////
-/// \brief Struct containing all the
-/// words loaded.
+/// \brief  Struct containing all the
+///         words loaded.
 ///////////////////////////////////////
 struct WordCategories loadedWords;
 

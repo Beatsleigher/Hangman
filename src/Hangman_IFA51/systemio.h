@@ -12,9 +12,9 @@
 //#========== Structs ==========#
 
 ///////////////////////////////////////
-/// \brief Struct containing variables for storing
-/// the words for the different categories
-/// and levels in the game.
+/// \brief  Struct containing variables for storing
+///         the words for the different categories
+///         and levels in the game.
 ///////////////////////////////////////
 struct WordCategories {
     char easyWords[1200][5]; // Really super-easy words...
@@ -24,7 +24,7 @@ struct WordCategories {
 };
 
 ///////////////////////////////////////
-/// \brief Declare type, as to make
+/// \brief  Declare type, as to make
 ///         programming easier.
 ///////////////////////////////////////
 typedef struct WordCategories WordCategories;
@@ -32,7 +32,7 @@ typedef struct WordCategories WordCategories;
 //#========== Methods and Functions ==========#
 
 ///////////////////////////////////////
-/// \brief Gets a value indicating
+/// \brief  Gets a value indicating
 ///         whether the file containing
 ///         the words for this game exists
 ///         or not.
@@ -46,19 +46,19 @@ typedef struct WordCategories WordCategories;
 bool wordFileExists();
 
 ///////////////////////////////////////
-/// \brief Downloads the file containing
+/// \brief  Downloads the file containing
 ///         the words used in the game.
 ///////////////////////////////////////
 //void downloadWordsFile();
 
 ///////////////////////////////////////
-/// \brief Saves the file containing the
+/// \brief  Saves the file containing the
 ///         words to the local hard drive.
 ///////////////////////////////////////
 void saveWordsFile();
 
 ///////////////////////////////////////
-/// \brief Reads the file containing the
+/// \brief  Reads the file containing the
 ///         words and stores them in a
 ///         provided struct (WordCategories)
 /// \param wordCats A pointer to a
@@ -68,13 +68,13 @@ void saveWordsFile();
 void readWords(struct WordCategories *wordCats);
 
 ///////////////////////////////////////
-/// \brief Creates the directories used
+/// \brief  Creates the directories used
 ///         by this program if necessary.
 ///////////////////////////////////////
 void createDirectories();
 
 ///////////////////////////////////////
-/// \brief Gets the length of the X-axis
+/// \brief  Gets the length of the X-axis
 ///         of the console in which this
 ///         application is being executed.
 ///////////////////////////////////////

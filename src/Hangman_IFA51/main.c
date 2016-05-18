@@ -70,7 +70,7 @@ int main() {
     for (int i = 0; i < sizeof(wordCategories.easyWords) / sizeof(wordCategories.easyWords[0]); i++) {
         printRight(wordCategories.easyWords[i], 3);
         char index[5000];
-        sprintf(index, "%i", i);
+        sprintf(index, "%i", wordCategories.easyWords[i]);
         printRight(index, 4);
         //Sleep(1000);
     }
