@@ -153,8 +153,34 @@ struct WordCategories getWords() {
         // Apparently the fucker doesn't work...
 
         while (fgets(read, sizeof(read), fPointer)) {
-            printRight(read, 6);
+            //printRight(read, 6);
+            //strcpy(wordContainer[index++], read);
+
+            switch (i) {
+                case 0:
+                    strcpy(words.easyWords[index], read);
+                    //printRight(words.easyWords[index], 7);
+                    break;
+                case 1:
+                    strcpy(words.mediumWords[index], read);
+                    //printRight(words.mediumWords[index], 7);
+                    break;
+                case 2:
+                    strcpy(words.hardWords[index], read);
+                    //printRight(words.hardWords[index], 7);
+                    break;
+                case 3:
+                    strcpy(words.insaneWords[index], read);
+                    //printRight(words.insaneWords[index], 7);
+                    break;
+                default:
+                    printError("Error occurred while loading words!");
+                    break;
+            }
+            index++;
         }
+
+
 
         fclose(fPointer);
 

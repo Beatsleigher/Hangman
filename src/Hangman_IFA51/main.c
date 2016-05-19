@@ -51,6 +51,11 @@ int main() {
     printProgressBar(20, 0);
 
     // Testing
+    printMessage("Test Message", "This is a test");
+    printMessage("Descriptive Message", "You can print up to sixty (60) characters in such a message!"); // I SWEAR THIS IS A COINCIDENCE!
+    char messageLines[5][60];
+    sprintf(messageLines[0], "");
+    printMultilineMsg("Descriptive Message", messageLines);
 
     // Create directories needed by the program
     createDirectories();
@@ -67,12 +72,44 @@ int main() {
     clearBottomLine();
     printBottomCentre("Memchecks in progress...");
 
+    // Check for loading errors
+    int errorCount = 0;
     for (int i = 0; i < sizeof(wordCategories.easyWords) / sizeof(wordCategories.easyWords[0]); i++) {
-        printRight(wordCategories.easyWords[i], 3);
-        char index[5000];
-        sprintf(index, "%i", wordCategories.easyWords[i]);
-        printRight(index, 4);
+        if (wordCategories.easyWords[i] == NULL || wordCategories.easyWords[i] == "" || sizeof(wordCategories.easyWords[i] < 1)) {
+            errorCount++;
+        }
         //Sleep(1000);
+    }
+
+    for (int i = 0; i < sizeof(wordCategories.mediumWords) / sizeof(wordCategories.mediumWords[0]); i++) {
+        if (wordCategories.mediumWords[i] == NULL || wordCategories.mediumWords[i] == "" || sizeof(wordCategories.mediumWords[i] < 1)) {
+            errorCount++;
+        }
+        //Sleep(1000);
+    }
+
+    for (int i = 0; i < sizeof(wordCategories.hardWords) / sizeof(wordCategories.hardWords[0]); i++) {
+        if (wordCategories.easyWords[i] == NULL || wordCategories.easyWords[i] == "" || sizeof(wordCategories.easyWords[i] < 1)) {
+            errorCount++;
+        }
+        //Sleep(1000);
+    }
+
+    for (int i = 0; i < sizeof(wordCategories.easyWords) / sizeof(wordCategories.easyWords[0]); i++) {
+        if (wordCategories.easyWords[i] == NULL || wordCategories.easyWords[i] == "" || sizeof(wordCategories.easyWords[i] < 1)) {
+            errorCount++;
+        }
+        //Sleep(1000);
+    }
+
+    // If more than three errors are detected, show an error!
+    if (errorCount >= 3) {
+        char message[5][60];
+        strcpy(message[0], "An error has occurred while loading words!");
+        strcpy(message[1], "You may continue playing Hangman,");
+        strcpy(message[2], "however some more errors may occur!");
+        strcpy(message[3], "It is recommended you restart Hangman!");
+        printMultilineError(message, 5);
     }
 
     printProgressBar(100, 75);
