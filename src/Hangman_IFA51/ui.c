@@ -438,13 +438,14 @@ void printMultilineMsg(char *title, char lines[5][60], short linesPassed) {
             } else {
                 printCentre(l3, yCoord + i);
             }
+            //Sleep(750);
         }
 
         printCentre(title, yCoord + 2);
 
-        for (int i = 0; i < linesPassed; i++) { // 5 was hardcoded, because that's the max. amount of lines for the array...
-            //printBottomCentre("Test " + i);
+        for (int i = 0; i < linesPassed; i++) {
             printCentre(lines[i], yCoord + i + 5);
+            Sleep(1000);
         }
 
         printCentre("Hit [ ENTER ] to Continue!", height + yCoord + 2);

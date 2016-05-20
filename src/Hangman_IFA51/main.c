@@ -51,11 +51,15 @@ int main() {
     printProgressBar(20, 0);
 
     // Testing
-    printMessage("Test Message", "This is a test");
-    printMessage("Descriptive Message", "You can print up to sixty (60) characters in such a message!"); // I SWEAR THIS IS A COINCIDENCE!
+//    printMessage("Test Message", "This is a test");
+//    printMessage("Descriptive Message", "You can print up to sixty (60) characters in such a message!"); // I SWEAR THIS IS A COINCIDENCE!
     char messageLines[5][60];
-    sprintf(messageLines[0], "");
-    printMultilineMsg("Descriptive Message", messageLines);
+    sprintf(messageLines[0], "Even messages with multiple lines are supported!");
+    sprintf(messageLines[1], "You can add up to 5 lines, each with up to 60 characters!"); // This one is pure coincidence! Really!
+    sprintf(messageLines[2], "By using sprintf(), you can even format the text!");
+    sprintf(messageLines[3], "Th%i %i %i f%irm%itt%id %ixt", 15, 15, 4, 0, 4, 3, 73);
+    sprintf(messageLines[4], "The possibilities are endless!");
+    printMultilineMsg("Descriptive Message", messageLines, 5);
 
     // Create directories needed by the program
     createDirectories();
