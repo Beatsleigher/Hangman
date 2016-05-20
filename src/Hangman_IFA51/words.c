@@ -141,7 +141,7 @@ struct WordCategories getWords() {
         int index = 0;
         char wordContainer[5000][150];
 
-        printRight(filePaths[i], 3);
+        //printRight(filePaths[i], 3);
 
         fPointer = fopen(filePaths[i], "r");
         if (fPointer == NULL) {

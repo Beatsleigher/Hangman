@@ -445,7 +445,7 @@ void printMultilineMsg(char *title, char lines[5][60], short linesPassed) {
 
         for (int i = 0; i < linesPassed; i++) {
             printCentre(lines[i], yCoord + i + 5);
-            Sleep(1000);
+//            Sleep(1000);
         }
 
         printCentre("Hit [ ENTER ] to Continue!", height + yCoord + 2);
