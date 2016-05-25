@@ -647,22 +647,6 @@ void printGameUI(int selectedLevel, char *randomWord, short errors, char typedCh
     }
     setCursorPosition(0, 0);
 
-    /// Print stats
-    short yCoord = 4;
-    setCursorPosition(3, 2);
-    printf("Fails (%i): ", errors);
-    for (int i = 0; i < errors; i++) {
-        setCursorPosition(7, yCoord + i);
-        char error = typedErrors[i][0];
-        printf("%c", error);
-    }
-
-    /// Print word placeholder
-    setCursorPosition(getConsoleLen() / 2 - strlen(randomWord), getConsoleHeight() - 2);
-    for (int i = 0; i < strlen(randomWord); i++) {
-        printf("_ ");
-    }
-
     printHangman(errors);
 
 }
@@ -1056,6 +1040,85 @@ void printHangman(short errors) {
     } else {
         // ERROR
     }
+
+}
+
+void printGameStats(short errors, char typedErrors[7][1]) {
+    short yCoord = 4;
+    setCursorPosition(3, 2);
+    printf("Fails (%i): ", errors);
+    for (int i = 0; i < errors; i++) {
+        setCursorPosition(7, yCoord + i);
+        char error = typedErrors[i][0];
+        printf("%c", error);
+    }
+}
+
+void printGameWordPlaceholder(char *word) {
+    setCursorPosition(getConsoleLen() / 2 - strlen(word), getConsoleHeight() - 2);
+    for (int i = 0; i < strlen(word); i++) {
+        printf(" _");
+    }
+}
+
+void printGameWonScreen() {
+    char *l1 = "                           oooo$$$$$$$$$$$$oooo                               ",
+         *l2 = "                       oo$$$$$$$$$$$$$$$$$$$$$$$$o                            ",
+         *l3 = "                    oo$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$o         o$   $$ o$      ",
+         *l4 = "    o $ oo        o$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$o       $$ $$ $$o$     ",
+         *l5 = " oo $ $ \"$      o$$$$$$$$$    $$$$$$$$$$$$$    $$$$$$$$$o       $$$o$$o$     ",
+         *l6 = " \"$$$$$$o$     o$$$$$$$$$      $$$$$$$$$$$      $$$$$$$$$$o    $$$$$$$$       ",
+         *l7 = "   $$$$$$$    $$$$$$$$$$$      $$$$$$$$$$$      $$$$$$$$$$$$$$$$$$$$$$$       ",
+         *l8 = "   $$$$$$$$$$$$$$$$$$$$$$$    $$$$$$$$$$$$$    $$$$$$$$$$$$$$  \"\"\"$$$         ",
+         *l9 = "    \"$$$\"\"\"\"$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$     \"$$$        ",
+         *l10 = "     $$$   o$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$     \"$$$o     ",
+         *l11 = "    o$$\"   $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$       $$$o    ",
+         *l12 = "    $$$    $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\" \"$$$$$$ooooo$$$$o  ",
+         *l13 = "   o$$$oooo$$$$$  $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$   o$$$$$$$$$$$$$$$$$ ",
+         *l14 = "   $$$$$$$$\"$$$$   $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$     $$$$\"\"\"\"\"\"\"\"       ",
+         *l15 = "  \"\"\"\"       $$$$    \"$$$$$$$$$$$$$$$$$$$$$$$$$$$$\"      o$$$                ",
+         *l16 = "             \"$$$o     \"\"\"$$$$$$$$$$$$$$$$$$\"$$\"         $$$                 ",
+         *l17 = "               $$$o          \"$$\"\"$$$$$$\"\"\"\"           o$$$                  ",
+         *l18 = "                $$$$o                                o$$$\"                   ",
+         *l19 = "                 \"$$$$o      o$$$$$$o\"$$$$o        o$$$$                     ",
+         *l20 = "                   \"$$$$$oo     \"\"$$$$o$$$$$o   o$$$$\"\"                      ",
+         *l21 = "                      \"\"$$$$$oooo  \"$$$o$$$$$$$$$\"\"\"                         ",
+         *l22 = "                         \"\"$$$$$$$oo $$$$$$$$$$                              ",
+         *l23 = "                                 \"\"\"\"$$$$$$$$$$$                             ",
+         *l24 = "                                     $$$$$$$$$$$$                            ",
+         *l25 = "                                      $$$$$$$$$$\"                            ",
+         *l26 = "                                       \"$$$\"\"                                ";
+
+    int yCoord = 2;
+    printCentre(l1, yCoord++);
+    printCentre(l2, yCoord++);
+    printCentre(l3, yCoord++);
+    printCentre(l4, yCoord++);
+    printCentre(l5, yCoord++);
+    printCentre(l6, yCoord++);
+    printCentre(l7, yCoord++);
+    printCentre(l8, yCoord++);
+    printCentre(l9, yCoord++);
+    printCentre(l10, yCoord++);
+    printCentre(l11, yCoord++);
+    printCentre(l12, yCoord++);
+    printCentre(l13, yCoord++);
+    printCentre(l14, yCoord++);
+    printCentre(l15, yCoord++);
+    printCentre(l16, yCoord++);
+    printCentre(l17, yCoord++);
+    printCentre(l18, yCoord++);
+    printCentre(l19, yCoord++);
+    printCentre(l20, yCoord++);
+    printCentre(l21, yCoord++);
+    printCentre(l22, yCoord++);
+    printCentre(l23, yCoord++);
+    printCentre(l24, yCoord++);
+    printCentre(l25, yCoord++);
+    printCentre(l26, yCoord++);
+
+    printCentre("Press [ ENTER ] to Continue", yCoord + 1);
+    getchar();
 
 }
 

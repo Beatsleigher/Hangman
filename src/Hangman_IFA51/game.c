@@ -289,41 +289,92 @@ void executeGame(struct WordCategories words) {
             //printMultilineError(errorLines, 3);
     }
 
+    // Stuff for in-game display
+    char errors[7][1];
+    int amountOfErrors = 0;
+    char typedChar = "\0";
+
+    char correctLetters[125];
+    int indexOfCorrectLetters = 0;
+
+    strcpy(randomWord, "test");
 
     /**
         Jump in to the game loop.
         This is where most of the magic happens.
         This loop will be continued until the user wants to quit the game.
      */
+
+
+    printGameUI(selectedLevel, randomWord, amountOfErrors, typedChar, errors);
+
+    /// Print stats
+    printGameStats(amountOfErrors, errors);
+
+    /// Print word placeholder
+    printGameWordPlaceholder(randomWord);
+
     while (runGame) {
 
-        char errors[7][1];
-        strcpy(errors[0], "A");
-        strcpy(errors[1], "B");
-        strcpy(errors[2], "C");
-        strcpy(errors[3], "D");
-        strcpy(errors[4], "E");
-        strcpy(errors[5], "F");
-        strcpy(errors[6], "G");
+        // Check if player won or lost before the game starts/continues
+        if (amountOfErrors == 7) {
+            // Player has lost.
+            Sleep(2000);
+            showGameOver();
+            printCentre("Press [ ENTER ] to Continue", 2);
+            getchar();
+            runGame = false;
+            break;
+        }
 
-        printGameUI(selectedLevel, randomWord, 0, "", errors);
-        Sleep(5000);
-        printGameUI(selectedLevel, randomWord, 1, "", errors);
-        Sleep(5000);
-        printGameUI(selectedLevel, randomWord, 2, "", errors);
-        Sleep(5000);
-        printGameUI(selectedLevel, randomWord, 3, "", errors);
-        Sleep(5000);
-        printGameUI(selectedLevel, randomWord, 4, "", errors);
-        Sleep(5000);
-        printGameUI(selectedLevel, randomWord, 5, "", errors);
-        Sleep(5000);
-        printGameUI(selectedLevel, randomWord, 6, "", errors);
-        Sleep(5000);
-        printGameUI(selectedLevel, randomWord, 7, "", errors);
+        if (strcmp(randomWord, correctLetters) == 0) {
+            // User has WON! YAAAAAY!
+            printGameWonScreen();
+            runGame = false;
+            break;
+        }
 
-        Sleep(25000);
-        runGame = false;
+        char *foundChar;
+
+        typedChar = getch();
+
+        /**
+            Check for valid input.
+            If input is invalid (i.e.: not an alphabetical character),
+            then skip the rest of the loop and start again.
+         */
+        if (!((typedChar >= 65 && typedChar <= 90) || (typedChar >= 97 && typedChar <= 122))) {
+            continue;
+        }
+
+        foundChar = strchr(randomWord, typedChar);
+
+        if (foundChar != 0) {
+            while (foundChar != 0) {
+                short xCoord = 0;
+                short charPosition = (foundChar - randomWord + 1);
+
+                if (charPosition == 1) {
+                    xCoord = (getConsoleLen() / 2 - strlen(randomWord)) + (foundChar - randomWord + 1);
+                } else if (charPosition == strlen(randomWord)) {
+                    xCoord = (getConsoleLen() / 2 + strlen(randomWord) / 2 + 1);
+                } else {
+                    xCoord = (getConsoleLen() / 2 - strlen(randomWord)) + ((foundChar - randomWord) * 2) + 1;
+                }
+
+                strcpy(correctLetters[charPosition], foundChar);
+                setCursorPosition(xCoord, getConsoleHeight() - 2);
+                printf("%c", typedChar);
+                foundChar = strchr(foundChar + 1, typedChar);
+            }
+        } else {
+            char err[10];
+            sprintf(err, "%c", typedChar);
+            strcpy(errors[amountOfErrors], err);
+            amountOfErrors++;
+            printGameStats(amountOfErrors, errors);
+            printHangman(amountOfErrors);
+        }
 
     }
 }

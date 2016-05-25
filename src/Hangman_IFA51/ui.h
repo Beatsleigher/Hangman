@@ -259,4 +259,23 @@ void printGameUI(int selectedLevel, char *randomWord, short errors, char typedCh
 ///////////////////////////////////////
 void printHangman(short errors);
 
+///////////////////////////////////////
+/// \brief  Prints the current stats for the ongoing game.
+///////////////////////////////////////
+void printGameStats(short errors, char typedErrors[7][1]);
+
+///////////////////////////////////////
+/// \brief  Prints the placeholder for
+///         the hidden word.
+///////////////////////////////////////
+void printGameWordPlaceholder(char *word);
+
+///////////////////////////////////////
+/// \brief  Prints a screen notifying
+///         the player that they have
+///         won the game!
+///         Congrats to them!
+///////////////////////////////////////
+void printGameWonScreen();
+
 #endif // UI_H_INCLUDED
