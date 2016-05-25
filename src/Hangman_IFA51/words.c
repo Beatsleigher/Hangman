@@ -158,26 +158,26 @@ struct WordCategories getWords() {
 
             switch (i) {
                 case 0:
-                    strcpy(words.easyWords[index], read);
+                    strcpy(words.easyWords[index++], read);
                     //printRight(words.easyWords[index], 7);
                     break;
                 case 1:
-                    strcpy(words.mediumWords[index], read);
+                    strcpy(words.mediumWords[index++], read);
                     //printRight(words.mediumWords[index], 7);
                     break;
                 case 2:
-                    strcpy(words.hardWords[index], read);
+                    strcpy(words.hardWords[index++], read);
                     //printRight(words.hardWords[index], 7);
                     break;
                 case 3:
-                    strcpy(words.insaneWords[index], read);
+                    strcpy(words.insaneWords[index++], read);
                     //printRight(words.insaneWords[index], 7);
                     break;
                 default:
                     printError("Error occurred while loading words!");
                     break;
             }
-            index++;
+            //index++;
         }
 
 

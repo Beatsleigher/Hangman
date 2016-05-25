@@ -233,8 +233,30 @@ void printStatusBar();
 void printStatusBarMsg(char *msg);
 
 ///////////////////////////////////////
-/// \brief
+/// \brief  Removes the status bar from
+///         the bottom of the console
+///         Might come in handy...
 ///////////////////////////////////////
 void clearStatusBar();
+
+///////////////////////////////////////
+/// \brief  Prints a screen saying
+///         goodbye to the player.
+///////////////////////////////////////
+void printGoodBye();
+
+///////////////////////////////////////
+/// \brief  Prints the actual game UI
+///////////////////////////////////////
+void printGameUI(int selectedLevel, char *randomWord, short errors, char typedChar, char typedErrors[7][1]);
+
+///////////////////////////////////////
+/// \brief  Prints the actual hangman.
+///         Depending on how many errors
+///         have occurred, more or less
+///         parts of the hangman will be
+///         shown.
+///////////////////////////////////////
+void printHangman(short errors);
 
 #endif // UI_H_INCLUDED

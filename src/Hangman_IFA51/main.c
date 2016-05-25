@@ -23,6 +23,9 @@ int main() {
     // Clear screen at very beginning to ensure clean output
     system("cls");
 
+    //showGameOver();
+    //return 0;
+
     char *by = "By Simon C., Patrick M., Sergey S.";
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
@@ -48,6 +51,10 @@ int main() {
     // Easier solution
     system("color 0a"); // Set console colour to black background, light green text
 
+    // Set window size
+    SMALL_RECT windowSize = {0, 0, 180, 80};
+    SetConsoleWindowInfo(hConsole, 1, &windowSize);
+
     printProgressBar(20, 0);
 
     // Testing
@@ -60,6 +67,7 @@ int main() {
 //    sprintf(messageLines[3], "Th%i %i %i f%irm%itt%id %ixt", 15, 15, 4, 0, 4, 3, 73);
 //    sprintf(messageLines[4], "The possibilities are endless!");
 //    printMultilineMsg("Descriptive Message", messageLines, 5);
+//    return 0;
 
     // Create directories needed by the program
     createDirectories();
@@ -120,17 +128,28 @@ int main() {
 
     Sleep(2000);
     clearScreen();
-    printWelcomeScreen();
+///    printWelcomeScreen();
 
     // Wait for user input, then open menu
     printCentre("Hit [ ENTER ] to continue!", (getConsoleHeight() / 2) + 5);
     getchar();
 
-    // Clear screen and send user to main menu
-    clearScreen();
-    showGameMenu();
 
-    executeGame(wordCategories);
+///    // Clear screen and send user to main menu
+///    clearScreen();
+///    showGameMenu();
+///
+///    executeGame(wordCategories);
+
+    // When game exits, go to main menu.
+    // Don't show complete intro again.
+    // Make it look like a real game.
+    while (showGameMenu() != QUIT_GAME) {
+        executeGame(wordCategories);
+    }
+
+    // Print farewell, exit program.
+    printGoodBye();
 
     // Restore saved console attrs. Saves us from getting warnings
     SetConsoleTextAttribute(hConsole, saved_attributes);

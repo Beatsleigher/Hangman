@@ -16,8 +16,13 @@
 #define H_KEY 104
 #define I_KEY 105
 #define RETURN_KEY 0x0D
+#define ESC_KEY 27
 
-#define LEVEL_EASY
+#define LEVEL_EASY 0
+#define LEVEL_MEDIUM 1
+#define LEVEL_HARD 2
+#define LEVEL_INSANE 3
+#define QUIT_GAME -1
 
 // Project includes
 #include "game.h"
@@ -38,16 +43,17 @@
 #include <conio.h>
 
 int showGameMenu() {
-    printMainMenu(0);
+    clearScreen();
+    printMainMenu(LEVEL_EASY);
     int charKey;
-    selectedLevel = 0;
+    selectedLevel = LEVEL_EASY;
 
     // Test code
 //    printMessage("test", "This is a test!");
 //    Sleep(2000);
 //    printError("This is an error!");
 //    clearScreen();
-//    printMainMenu(0);
+//    printMainMenu(LEVEL_EASY);
 
     // Read character. Wait for arrow keys and return.
     do {
@@ -56,19 +62,19 @@ int showGameMenu() {
         if (charKey == UP_ARROW) {
             switch (selectedLevel) {
                 case 0: // Level easy
-                    selectedLevel = 0;
+                    selectedLevel = LEVEL_EASY;
                     break;
                 case 1: // Level medium
-                    printMainMenu(0);
-                    selectedLevel = 0;
+                    printMainMenu(LEVEL_EASY);
+                    selectedLevel = LEVEL_EASY;
                     break;
                 case 2: // Level hard
-                    printMainMenu(1);
-                    selectedLevel = 1;
+                    printMainMenu(LEVEL_MEDIUM);
+                    selectedLevel = LEVEL_MEDIUM;
                     break;
                 case 3: // Level insane
-                    printMainMenu(2);
-                    selectedLevel = 2;
+                    printMainMenu(LEVEL_HARD);
+                    selectedLevel = LEVEL_HARD;
                     break;
                 default: // Error
                     printError("Error selecting level! Press ENTER to try again!");
@@ -79,19 +85,19 @@ int showGameMenu() {
         } else if (charKey == DOWN_ARROW) {
             switch (selectedLevel) {
                 case 0: // Level easy
-                    printMainMenu(1);
-                    selectedLevel = 1;
+                    printMainMenu(LEVEL_MEDIUM);
+                    selectedLevel = LEVEL_MEDIUM;
                     break;
                 case 1: // Level medium
-                    printMainMenu(2);
-                    selectedLevel = 2;
+                    printMainMenu(LEVEL_HARD);
+                    selectedLevel = LEVEL_HARD;
                     break;
                 case 2: // Level hard
-                    printMainMenu(3);
-                    selectedLevel = 3;
+                    printMainMenu(LEVEL_INSANE);
+                    selectedLevel = LEVEL_INSANE;
                     break;
                 case 3: // Level insane
-                    selectedLevel = 3;
+                    selectedLevel = LEVEL_INSANE;
                     break;
                 default: // Error
                     printError("Error selecting level! Press ENTER to try again!");
@@ -102,19 +108,19 @@ int showGameMenu() {
         } else if (charKey == W_KEY) {
             switch (selectedLevel) {
                 case 0: // Level easy
-                    selectedLevel = 0;
+                    selectedLevel = LEVEL_EASY;
                     break;
                 case 1: // Level medium
-                    printMainMenu(0);
-                    selectedLevel = 0;
+                    printMainMenu(LEVEL_EASY);
+                    selectedLevel = LEVEL_EASY;
                     break;
                 case 2: // Level hard
-                    printMainMenu(1);
-                    selectedLevel = 1;
+                    printMainMenu(LEVEL_MEDIUM);
+                    selectedLevel = LEVEL_MEDIUM;
                     break;
                 case 3: // Level insane
-                    printMainMenu(2);
-                    selectedLevel = 2;
+                    printMainMenu(LEVEL_HARD);
+                    selectedLevel = LEVEL_HARD;
                     break;
                 default: // Error
                     printError("Error selecting level! Press ENTER to try again!");
@@ -125,19 +131,19 @@ int showGameMenu() {
         } else if (charKey == S_KEY) {
             switch (selectedLevel) {
                case 0: // Level easy
-                    printMainMenu(1);
-                    selectedLevel = 1;
+                    printMainMenu(LEVEL_MEDIUM);
+                    selectedLevel = LEVEL_MEDIUM;
                     break;
                 case 1: // Level medium
-                    printMainMenu(2);
-                    selectedLevel = 2;
+                    printMainMenu(LEVEL_HARD);
+                    selectedLevel = LEVEL_HARD;
                     break;
                 case 2: // Level hard
-                    printMainMenu(3);
-                    selectedLevel = 3;
+                    printMainMenu(LEVEL_INSANE);
+                    selectedLevel = LEVEL_INSANE;
                     break;
                 case 3: // Level insane
-                    selectedLevel = 3;
+                    selectedLevel = LEVEL_INSANE;
                     break;
                 default: // Error
                     printError("Error selecting level! Press ENTER to try again!");
@@ -147,19 +153,19 @@ int showGameMenu() {
         } else if (charKey == PG_UP) {
             switch (selectedLevel) {
                case 0: // Level easy
-                    selectedLevel = 0;
+                    selectedLevel = LEVEL_EASY;
                     break;
                 case 1: // Level medium
-                    printMainMenu(0);
-                    selectedLevel = 0;
+                    printMainMenu(LEVEL_EASY);
+                    selectedLevel = LEVEL_EASY;
                     break;
                 case 2: // Level hard
-                    printMainMenu(0);
-                    selectedLevel = 0;
+                    printMainMenu(LEVEL_EASY);
+                    selectedLevel = LEVEL_EASY;
                     break;
                 case 3: // Level insane
-                    printMainMenu(0);
-                    selectedLevel = 0;
+                    printMainMenu(LEVEL_EASY);
+                    selectedLevel = LEVEL_EASY;
                     break;
                 default: // Error
                     printError("Error selecting level! Press ENTER to try again!");
@@ -169,19 +175,19 @@ int showGameMenu() {
         } else if (charKey == PG_DWN) {
             switch (selectedLevel) {
                case 0: // Level easy
-                    printMainMenu(3);
-                    selectedLevel = 3;
+                    printMainMenu(LEVEL_INSANE);
+                    selectedLevel = LEVEL_INSANE;
                     break;
                 case 1: // Level medium
-                    printMainMenu(3);
-                    selectedLevel = 3;
+                    printMainMenu(LEVEL_INSANE);
+                    selectedLevel = LEVEL_INSANE;
                     break;
                 case 2: // Level hard
-                    printMainMenu(3);
-                    selectedLevel = 3;
+                    printMainMenu(LEVEL_INSANE);
+                    selectedLevel = LEVEL_INSANE;
                     break;
                 case 3: // Level insane
-                    selectedLevel = 3;
+                    selectedLevel = LEVEL_INSANE;
                     break;
                 default: // Error
                     printError("Error selecting level! Press ENTER to try again!");
@@ -189,17 +195,19 @@ int showGameMenu() {
                     break;
             }
         } else if (charKey == E_KEY) {
-            printMainMenu(0);
-            selectedLevel = 0;
+            printMainMenu(LEVEL_EASY);
+            selectedLevel = LEVEL_EASY;
         } else if (charKey == M_KEY) {
-            printMainMenu(1);
-            selectedLevel = 1;
+            printMainMenu(LEVEL_MEDIUM);
+            selectedLevel = LEVEL_MEDIUM;
         } else if (charKey == H_KEY) {
-            printMainMenu(2);
-            selectedLevel = 2;
+            printMainMenu(LEVEL_HARD);
+            selectedLevel = LEVEL_HARD;
         } else if (charKey == I_KEY) {
-            printMainMenu(3);
-            selectedLevel = 3;
+            printMainMenu(LEVEL_INSANE);
+            selectedLevel = LEVEL_INSANE;
+        } else if (charKey == ESC_KEY) {
+            return QUIT_GAME;
         } else {
             /*printError("Error selecting level! Press ENTER to try again!");
             clearScreen();
@@ -213,7 +221,74 @@ int showGameMenu() {
 
 void executeGame(struct WordCategories words) {
     runGame = true;
-    char errorLines[5][60];
+    char errorLines[5][60];// Show loading screen and load stuff for the game..
+    showLoadingScreen();
+
+    switch (selectedLevel) {
+        case 0:
+            printStatusBarMsg("Selected level \"Easy\"");
+            Sleep(750);
+            break;
+        case 1:
+            printStatusBarMsg("Selected level \"Medium\"");
+            Sleep(750);
+            break;
+        case 2:
+            printStatusBarMsg("Selected level \"Hard\"");
+            Sleep(750);
+            break;
+        case 3:
+            printStatusBarMsg("Selected level \"Insane\". I like you!");
+            Sleep(750);
+            break;
+    }
+
+    // Show status at the bottom of the screen.
+    printStatusBarMsg("Seeding random number...");
+
+    // Plant seed
+    srand(468164894);
+
+    // Randomly choose a word, depending on the level selected.
+    printStatusBarMsg("Randomly choosing a word...");
+    Sleep(500);
+    char randomWord[150];
+    int randomIndex = rand() % 20;
+    switch (selectedLevel) {
+        case 0: // Level easy
+            strcpy(randomWord, words.easyWords[randomIndex]);
+            char *word = words.easyWords[randomIndex];
+            //setCursorPosition(getConsoleLen() / 2 - strlen(word) / 2, getConsoleHeight() - 2);
+            printf("%i", randomIndex);
+            printStatusBarMsg("A word has been selected!");
+            Sleep(1000);
+            printStatusBarMsg("Good luck!");
+            break;
+        case 1: // Level medium
+            strcpy(randomWord, words.mediumWords[randomIndex]);
+            printStatusBarMsg("A word has been selected!");
+            Sleep(1000);
+            printStatusBarMsg("Good luck!");
+            break;
+        case 2: // level hard
+            strcpy(randomWord, words.hardWords[randomIndex]);
+            printStatusBarMsg("A word has been selected!");
+            Sleep(1000);
+            printStatusBarMsg("Good luck!");
+            break;
+        case 3: // Level insane.
+            strcpy(randomWord, words.insaneWords[randomIndex]);
+            printStatusBarMsg("A word has been selected!");
+            Sleep(1000);
+            printStatusBarMsg("Prepare to be defeated!");
+            break;
+        default:
+            strcpy(errorLines[0], "An error has occurred.");
+            strcpy(errorLines[1], "Could not locate the selected level!");
+            strcpy(errorLines[2], "Will exit to main menu!");
+            //printMultilineError(errorLines, 3);
+    }
+
 
     /**
         Jump in to the game loop.
@@ -222,72 +297,32 @@ void executeGame(struct WordCategories words) {
      */
     while (runGame) {
 
-        // Show loading screen and load stuff for the game..
-        showLoadingScreen();
+        char errors[7][1];
+        strcpy(errors[0], "A");
+        strcpy(errors[1], "B");
+        strcpy(errors[2], "C");
+        strcpy(errors[3], "D");
+        strcpy(errors[4], "E");
+        strcpy(errors[5], "F");
+        strcpy(errors[6], "G");
 
-        switch (selectedLevel) {
-            case 0:
-                printStatusBarMsg("Selected level \"Easy\"");
-                Sleep(750);
-                break;
-            case 1:
-                printStatusBarMsg("Selected level \"Medium\"");
-                Sleep(750);
-                break;
-            case 2:
-                printStatusBarMsg("Selected level \"Hard\"");
-                Sleep(750);
-                break;
-            case 3:
-                printStatusBarMsg("Selected level \"Insane\". I like you!");
-                Sleep(750);
-                break;
-        }
+        printGameUI(selectedLevel, randomWord, 0, "", errors);
+        Sleep(5000);
+        printGameUI(selectedLevel, randomWord, 1, "", errors);
+        Sleep(5000);
+        printGameUI(selectedLevel, randomWord, 2, "", errors);
+        Sleep(5000);
+        printGameUI(selectedLevel, randomWord, 3, "", errors);
+        Sleep(5000);
+        printGameUI(selectedLevel, randomWord, 4, "", errors);
+        Sleep(5000);
+        printGameUI(selectedLevel, randomWord, 5, "", errors);
+        Sleep(5000);
+        printGameUI(selectedLevel, randomWord, 6, "", errors);
+        Sleep(5000);
+        printGameUI(selectedLevel, randomWord, 7, "", errors);
 
-        // Show status at the bottom of the screen.
-        printStatusBarMsg("Seeding random number...");
-
-        // Plant seed
-        srand(468164894);
-
-        // Randomly choose a word, depending on the level selected.
-        printStatusBarMsg("Randomly choosing a word...");
-        Sleep(500);
-        char *randomWord;
-        int randomIndex = rand() % 20;
-        switch (selectedLevel) {
-            case 0: // Level easy
-                //strcpy(randomWord, words.easyWords[randomIndex]);
-                printStatusBarMsg("A word has been selected!");
-                Sleep(1000);
-                printStatusBarMsg("Good luck!");
-                break;
-            case 1: // Level medium
-                //strcpy(randomWord, words.mediumWords[rand() % 1200]);
-                printStatusBarMsg("A word has been selected!");
-                Sleep(1000);
-                printStatusBarMsg("Good luck!");
-                break;
-            case 2: // level hard
-                //strcpy(randomWord, words.hardWords[rand() % 1200]);
-                printStatusBarMsg("A word has been selected!");
-                Sleep(1000);
-                printStatusBarMsg("Good luck!");
-                break;
-            case 3: // Level insane.
-                //strcpy(randomWord, words.insaneWords[rand() % 1200]);
-                printStatusBarMsg("A word has been selected!");
-                Sleep(1000);
-                printStatusBarMsg("Prepare to be defeated!");
-                break;
-            default:
-                strcpy(errorLines[0], "An error has occurred.");
-                strcpy(errorLines[1], "Could not locate the selected level!");
-                strcpy(errorLines[2], "Will exit to main menu!");
-                //printMultilineError(errorLines, 3);
-        }
-
-        printBottomCentre(randomWord);
+        Sleep(25000);
         runGame = false;
 
     }

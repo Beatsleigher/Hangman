@@ -8,6 +8,7 @@
 #include "ui.h"
 #include "systemio.h"
 #include "words.h"
+#include "game.h"
 
 // System includes
 #include <windows.h>
@@ -72,7 +73,7 @@ void printXYCentre(char *str) {
 
 void printTopCentre(char *str) {
     int x = getConsoleLen() / 2 - strlen(str) / 2;
-    int y = getConsoleHeight() - getConsoleHeight() + 1;
+    int y = 0;
     setCursorPosition(x, y);
     printf(str);
 }
@@ -319,7 +320,8 @@ void printMainMenu(int selection) {
     *instructionText = "CONTROLS:",
     *wKey = "\tW / UP\t\t-> Cursor Up",
     *sKey = "\tS / DOWN\t-> Cursor Down",
-    *returnKey = "\tENTER\t\t-> Confirm Selection";
+    *returnKey = "\tENTER\t\t-> Confirm Selection",
+    *escKey = "\tESC\t\t-> Exit Game";
 
     // Print title to top of screen
     printCentre(l15, 1);
@@ -340,6 +342,7 @@ void printMainMenu(int selection) {
     printLeft(wKey, 16);
     printLeft(sKey, 17);
     printLeft(returnKey, 18);
+    printLeft(escKey, 19);
 
     // Clear menu items
     // Just print whitespace.
@@ -553,3 +556,507 @@ void printStatusBarMsg(char *msg) {
 void clearStatusBar() {
     clearLine(getConsoleHeight() - 1);
 }
+
+void printGoodBye() {
+    // Clear screen
+    clearScreen();
+
+    // Print farewell
+    char *l1 = "MM'\"\"\"\"\"`MM MMP\"\"\"\"\"YMM MMP\"\"\"\"\"YMM M\"\"\"\"\"\"'YMM M#\"\"\"\"\"\"\"'M  M\"\"MMMM\"\"M MM\"\"\"\"\"\"\"\"`M dP ",
+         *l2 = "M' .mmm. `M M' .mmm. `M M' .mmm. `M M  mmmm. `M ##  mmmm. `M M. `MM' .M MM  mmmmmmmM 88 ",
+         *l3 = "M  MMMMMMMM M  MMMMM  M M  MMMMM  M M  MMMMM  M #'        .M MM.    .MM M`      MMMM 88 ",
+         *l4 = "M  MMM   `M M  MMMMM  M M  MMMMM  M M  MMMMM  M M#  MMMb.'YM MMMb  dMMM MM  MMMMMMMM dP ",
+         *l5 = "M. `MMM' .M M. `MMM' .M M. `MMM' .M M  MMMM' .M M#  MMMM'  M MMMM  MMMM MM  MMMMMMMM    ",
+         *l6 = "MM.     .MM MMb     dMM MMb     dMM M       .MM M#       .;M MMMM  MMMM MM        .M oo ",
+         *l7 = "MMMMMMMMMMM MMMMMMMMMMM MMMMMMMMMMM MMMMMMMMMMM M#########M  MMMMMMMMMM MMMMMMMMMMMM    ";
+
+    short centre = (short)getConsoleHeight() / 2;
+
+    printCentre(l1, centre - 3);
+    printCentre(l2, centre - 2);
+    printCentre(l3, centre - 1);
+    printCentre(l4, centre);
+    printCentre(l5, centre + 1);
+    printCentre(l6, centre + 2);
+    printCentre(l7, centre + 3);
+
+
+    // Sleep two seconds, clear screen again and exit.
+    Sleep(2000);
+    clearScreen();
+
+}
+
+void printGameUI(int selectedLevel, char *randomWord, short errors, char typedChar, char typedErrors[7][1]) {
+    // Print box around window border
+
+    /// Print top row
+    for (int i = 0; i < getConsoleLen(); i++) {
+        setCursorPosition(i, 0);
+        if (i == 0) {
+            printf("\xC9");
+        } else if (i == getConsoleLen() - 1) {
+            printf("\xBB");
+        } else if (i == 14) {
+            printf("\xCB");
+        } else {
+            printf("\xCD");
+        }
+    }
+    switch (selectedLevel) {
+        case LEVEL_EASY:
+            printTopCentre("Hangman\xCD\xCD\xCD\xCDLevel: Easy");
+            break;
+        case LEVEL_MEDIUM:
+            printTopCentre("Hangman\xCD\xCD\xCD\xCDLevel: Medium");
+            break;
+        case LEVEL_HARD:
+            printTopCentre("Hangman\xCD\xCD\xCD\xCDLevel: Hard");
+            break;
+        case LEVEL_INSANE:
+            printTopCentre("Hangman\xCD\xCD\xCD\xCDLevel: Insane!");
+            break;
+        default:
+            break;
+    }
+
+    /// Print sides
+    for (int i = 1; i < getConsoleHeight(); i++) {
+        clearLine(i);
+        printLeft("\xBA", i);
+        printRight("\xBA", i);
+        setCursorPosition(14, i);
+        printf("\xBA");
+        if (i == 3) {
+            printLeft("\xCC\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xB9", i);
+        }
+    }
+
+    /// Print bottom row
+    for (int i = 0; i < getConsoleLen(); i++) {
+        setCursorPosition(i, getConsoleHeight() - 1);
+        if (i == 0) {
+            printf("\xC8");
+        } else if (i == getConsoleLen() - 1) {
+            printf("\xBC");
+        } else if (i == 14) {
+            printf("\xCA");
+        } else {
+            printf("\xCD");
+        }
+    }
+    setCursorPosition(0, 0);
+
+    /// Print stats
+    short yCoord = 4;
+    setCursorPosition(3, 2);
+    printf("Fails (%i): ", errors);
+    for (int i = 0; i < errors; i++) {
+        setCursorPosition(7, yCoord + i);
+        char error = typedErrors[i][0];
+        printf("%c", error);
+    }
+
+    /// Print word placeholder
+    setCursorPosition(getConsoleLen() / 2 - strlen(randomWord), getConsoleHeight() - 2);
+    for (int i = 0; i < strlen(randomWord); i++) {
+        printf("_ ");
+    }
+
+    printHangman(errors);
+
+}
+
+void printHangman(short errors) {
+    short yCoord = 3;
+    char *hang1 =  " ___________.._______    ",
+         *hang2 =  "| .__________))______|   ",
+         *hang3 =  "| | / /      ||          ",
+         *hang4 =  "| |/ /       ||          ",
+         *hang5 =  "| | /        ||          ",
+         *hang6 =  "| |/         ||          ",
+         *hang7 =  "| |          ||          ",
+         *hang8 =  "| |                      ",
+         *hang9 =  "| |                      ",
+         *hang10 = "| |                      ",
+         *hang11 = "| |                      ",
+         *hang12 = "| |                      ",
+         *hang13 = "| |                      ",
+         *hang14 = "| |                      ",
+         *hang15 = "| |                      ",
+         *hang16 = "| |                      ",
+         *hang17 = "| |                      ",
+         *hang18 = "| |                      ",
+         *hang19 = "\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"|",
+         *hang20 = "|\"|\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"|\"|",
+         *hang21 = "| |                   | |",
+         *hang22 = ": :                   : :",
+         *hang23 = ". .                   . .";
+
+    char *hang1_0 =  " ___________.._______    ",
+         *hang2_0 =  "| .__________))______|   ",
+         *hang3_0 =  "| | / /      ||          ",
+         *hang4_0 =  "| |/ /       ||          ",
+         *hang5_0 =  "| | /        ||.-''.     ",
+         *hang6_0 =  "| |/         |/  _  \\    ",
+         *hang7_0 =  "| |          ||  `/,|    ",
+         *hang8_0 =  "| |          (\\\\`_.'     ",
+         *hang9_0 =  "| |         .-`--'.      ",
+         *hang10_0 = "| |                      ",
+         *hang11_0 = "| |                      ",
+         *hang12_0 = "| |                      ",
+         *hang13_0 = "| |                      ",
+         *hang14_0 = "| |                      ",
+         *hang15_0 = "| |                      ",
+         *hang16_0 = "| |                      ",
+         *hang17_0 = "| |                      ",
+         *hang18_0 = "| |                      ",
+         *hang19_0 = "\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"|",
+         *hang20_0 = "|\"|\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"|\"|",
+         *hang21_0 = "| |                   | |",
+         *hang22_0 = ": :                   : :",
+         *hang23_0 = ". .                   . .";
+
+    char *hang1_1 =  " ___________.._______    ",
+         *hang2_1 =  "| .__________))______|   ",
+         *hang3_1 =  "| | / /      ||          ",
+         *hang4_1 =  "| |/ /       ||          ",
+         *hang5_1 =  "| | /        ||.-''.     ",
+         *hang6_1 =  "| |/         |/  _  \\    ",
+         *hang7_1 =  "| |          ||  `/,|    ",
+         *hang8_1 =  "| |          (\\\\`_.'     ",
+         *hang9_1 =  "| |         .-`--'.      ",
+         *hang10_1 = "| |         Y . . Y      ",
+         *hang11_1 = "| |          |   |       ",
+         *hang12_1 = "| |          | . |       ",
+         *hang13_1 = "| |          |   |       ",
+         *hang14_1 = "| |                      ",
+         *hang15_1 = "| |                      ",
+         *hang16_1 = "| |                      ",
+         *hang17_1 = "| |                      ",
+         *hang18_1 = "| |                      ",
+         *hang19_1 = "\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"|",
+         *hang20_1 = "|\"|\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"|\"|",
+         *hang21_1 = "| |                   | |",
+         *hang22_1 = ": :                   : :",
+         *hang23_1 = ". .                   . .";
+
+    char *hang1_2 =  " ___________.._______    ",
+         *hang2_2 =  "| .__________))______|   ",
+         *hang3_2 =  "| | / /      ||          ",
+         *hang4_2 =  "| |/ /       ||          ",
+         *hang5_2 =  "| | /        ||.-''.     ",
+         *hang6_2 =  "| |/         |/  _  \\    ",
+         *hang7_2 =  "| |          ||  `/,|    ",
+         *hang8_2 =  "| |          (\\\\`_.'     ",
+         *hang9_2 =  "| |         .-`--'.      ",
+         *hang10_2 = "| |         Y . . Y\\     ",
+         *hang11_2 = "| |          |   | \\\\    ",
+         *hang12_2 = "| |          | . |  \\\\   ",
+         *hang13_2 = "| |          |   |   (`  ",
+         *hang14_2 = "| |                      ",
+         *hang15_2 = "| |                      ",
+         *hang16_2 = "| |                      ",
+         *hang17_2 = "| |                      ",
+         *hang18_2 = "| |                      ",
+         *hang19_2 = "\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"|",
+         *hang20_2 = "|\"|\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"|\"|",
+         *hang21_2 = "| |                   | |",
+         *hang22_2 = ": :                   : :",
+         *hang23_2 = ". .                   . .";
+
+    char *hang1_3 =  " ___________.._______    ",
+         *hang2_3 =  "| .__________))______|   ",
+         *hang3_3 =  "| | / /      ||          ",
+         *hang4_3 =  "| |/ /       ||          ",
+         *hang5_3 =  "| | /        ||.-''.     ",
+         *hang6_3 =  "| |/         |/  _  \\    ",
+         *hang7_3 =  "| |          ||  `/,|    ",
+         *hang8_3 =  "| |          (\\\\`_.'     ",
+         *hang9_3 =  "| |         .-`--'.      ",
+         *hang10_3 = "| |        /Y . . Y\\     ",
+         *hang11_3 = "| |       // |   | \\\\    ",
+         *hang12_3 = "| |      //  | . |  \\\\   ",
+         *hang13_3 = "| |     ')   |   |   (`  ",
+         *hang14_3 = "| |                      ",
+         *hang15_3 = "| |                      ",
+         *hang16_3 = "| |                      ",
+         *hang17_3 = "| |                      ",
+         *hang18_3 = "| |                      ",
+         *hang19_3 = "\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"|",
+         *hang20_3 = "|\"|\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"|\"|",
+         *hang21_3 = "| |                   | |",
+         *hang22_3 = ": :                   : :",
+         *hang23_3 = ". .                   . .";
+
+    char *hang1_4 =  " ___________.._______    ",
+         *hang2_4 =  "| .__________))______|   ",
+         *hang3_4 =  "| | / /      ||          ",
+         *hang4_4 =  "| |/ /       ||          ",
+         *hang5_4 =  "| | /        ||.-''.     ",
+         *hang6_4 =  "| |/         |/  _  \\    ",
+         *hang7_4 =  "| |          ||  `/,|    ",
+         *hang8_4 =  "| |          (\\\\`_.'     ",
+         *hang9_4 =  "| |         .-`--'.      ",
+         *hang10_4 = "| |        /Y . . Y\\     ",
+         *hang11_4 = "| |       // |   | \\\\    ",
+         *hang12_4 = "| |      //  | . |  \\\\   ",
+         *hang13_4 = "| |     ')   |   |   (`  ",
+         *hang14_4 = "| |          ||'||       ",
+         *hang15_4 = "| |             ||       ",
+         *hang16_4 = "| |             ||       ",
+         *hang17_4 = "| |             ||       ",
+         *hang18_4 = "| |             | \\     ",
+         *hang19_4 = "\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"|",
+         *hang20_4 = "|\"|\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"|\"|",
+         *hang21_4 = "| |                   | |",
+         *hang22_4 = ": :                   : :",
+         *hang23_4 = ". .                   . .";
+
+    char *hang1_5 =  " ___________.._______    ",
+         *hang2_5 =  "| .__________))______|   ",
+         *hang3_5 =  "| | / /      ||          ",
+         *hang4_5 =  "| |/ /       ||          ",
+         *hang5_5 =  "| | /        ||.-''.     ",
+         *hang6_5 =  "| |/         |/  _  \\    ",
+         *hang7_5 =  "| |          ||  `/,|    ",
+         *hang8_5 =  "| |          (\\\\`_.'     ",
+         *hang9_5 =  "| |         .-`--'.      ",
+         *hang10_5 = "| |        /Y . . Y\\     ",
+         *hang11_5 = "| |       // |   | \\\\    ",
+         *hang12_5 = "| |      //  | . |  \\\\   ",
+         *hang13_5 = "| |     ')   |   |   (`  ",
+         *hang14_5 = "| |          ||'||       ",
+         *hang15_5 = "| |          || ||       ",
+         *hang16_5 = "| |          || ||       ",
+         *hang17_5 = "| |          || ||       ",
+         *hang18_5 = "| |         / | | \\     ",
+         *hang19_5 = "\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"|",
+         *hang20_5 = "|\"|\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"|\"|",
+         *hang21_5 = "| |                   | |",
+         *hang22_5 = ": :                   : :",
+         *hang23_5 = ". .                   . .";
+
+    char *hang1_6 =  " ___________.._______    ",
+         *hang2_6 =  "| .__________))______|   ",
+         *hang3_6 =  "| | / /      ||          ",
+         *hang4_6 =  "| |/ /       ||          ",
+         *hang5_6 =  "| | /        ||.-''.     ",
+         *hang6_6 =  "| |/         |/  _  \\    ",
+         *hang7_6 =  "| |          ||  `/,|    ",
+         *hang8_6 =  "| |          (\\\\`_.'     ",
+         *hang9_6 =  "| |         .-`--'.      ",
+         *hang10_6 = "| |        /Y . . Y\\     ",
+         *hang11_6 = "| |       // |   | \\\\    ",
+         *hang12_6 = "| |      //  | . |  \\\\   ",
+         *hang13_6 = "| |     ')   |   |   (`  ",
+         *hang14_6 = "| |          ||'||       ",
+         *hang15_6 = "| |          || ||       ",
+         *hang16_6 = "| |          || ||       ",
+         *hang17_6 = "| |          || ||       ",
+         *hang18_6 = "| |         / | | \\     ",
+         *hang19_6 = "\"\"\"\"\"\"\"\"\"\"|_`-' `-' |\"\"\"|",
+         *hang20_6 = "|\"|\"\"\"\"\"\"\"\\ \\       '\"|\"|",
+         *hang21_6 = "| |        \\ \\        | |",
+         *hang22_6 = ": :         \\ \\       : :",
+         *hang23_6 = ". .          `'       . .";
+
+    if (errors == 0) {
+        printCentre(hang1, yCoord++);
+        printCentre(hang2, yCoord++);
+        printCentre(hang3, yCoord++);
+        printCentre(hang4, yCoord++);
+        printCentre(hang5, yCoord++);
+        printCentre(hang6, yCoord++);
+        printCentre(hang7, yCoord++);
+        printCentre(hang8, yCoord++);
+        printCentre(hang9, yCoord++);
+        printCentre(hang10, yCoord++);
+        printCentre(hang11, yCoord++);
+        printCentre(hang12, yCoord++);
+        printCentre(hang13, yCoord++);
+        printCentre(hang14, yCoord++);
+        printCentre(hang15, yCoord++);
+        printCentre(hang16, yCoord++);
+        printCentre(hang17, yCoord++);
+        printCentre(hang18, yCoord++);
+        printCentre(hang19, yCoord++);
+        printCentre(hang20, yCoord++);
+        printCentre(hang21, yCoord++);
+        printCentre(hang22, yCoord++);
+        printCentre(hang23, yCoord++);
+    } else if (errors == 1) {
+        printCentre(hang1_0, yCoord++);
+        printCentre(hang2_0, yCoord++);
+        printCentre(hang3_0, yCoord++);
+        printCentre(hang4_0, yCoord++);
+        printCentre(hang5_0, yCoord++);
+        printCentre(hang6_0, yCoord++);
+        printCentre(hang7_0, yCoord++);
+        printCentre(hang8_0, yCoord++);
+        printCentre(hang9_0, yCoord++);
+        printCentre(hang10_0, yCoord++);
+        printCentre(hang11_0, yCoord++);
+        printCentre(hang12_0, yCoord++);
+        printCentre(hang13_0, yCoord++);
+        printCentre(hang14_0, yCoord++);
+        printCentre(hang15_0, yCoord++);
+        printCentre(hang16_0, yCoord++);
+        printCentre(hang17_0, yCoord++);
+        printCentre(hang18_0, yCoord++);
+        printCentre(hang19_0, yCoord++);
+        printCentre(hang20_0, yCoord++);
+        printCentre(hang21_0, yCoord++);
+        printCentre(hang22_0, yCoord++);
+        printCentre(hang23_0, yCoord++);
+    } else if (errors == 2) {
+        printCentre(hang1_1, yCoord++);
+        printCentre(hang2_1, yCoord++);
+        printCentre(hang3_1, yCoord++);
+        printCentre(hang4_1, yCoord++);
+        printCentre(hang5_1, yCoord++);
+        printCentre(hang6_1, yCoord++);
+        printCentre(hang7_1, yCoord++);
+        printCentre(hang8_1, yCoord++);
+        printCentre(hang9_1, yCoord++);
+        printCentre(hang10_1, yCoord++);
+        printCentre(hang11_1, yCoord++);
+        printCentre(hang12_1, yCoord++);
+        printCentre(hang13_1, yCoord++);
+        printCentre(hang14_1, yCoord++);
+        printCentre(hang15_1, yCoord++);
+        printCentre(hang16_1, yCoord++);
+        printCentre(hang17_1, yCoord++);
+        printCentre(hang18_1, yCoord++);
+        printCentre(hang19_1, yCoord++);
+        printCentre(hang20_1, yCoord++);
+        printCentre(hang21_1, yCoord++);
+        printCentre(hang22_1, yCoord++);
+        printCentre(hang23_1, yCoord++);
+    } else if (errors == 3) {
+        printCentre(hang1_2, yCoord++);
+        printCentre(hang2_2, yCoord++);
+        printCentre(hang3_2, yCoord++);
+        printCentre(hang4_2, yCoord++);
+        printCentre(hang5_2, yCoord++);
+        printCentre(hang6_2, yCoord++);
+        printCentre(hang7_2, yCoord++);
+        printCentre(hang8_2, yCoord++);
+        printCentre(hang9_2, yCoord++);
+        printCentre(hang10_2, yCoord++);
+        printCentre(hang11_2, yCoord++);
+        printCentre(hang12_2, yCoord++);
+        printCentre(hang13_2, yCoord++);
+        printCentre(hang14_2, yCoord++);
+        printCentre(hang15_2, yCoord++);
+        printCentre(hang16_2, yCoord++);
+        printCentre(hang17_2, yCoord++);
+        printCentre(hang18_2, yCoord++);
+        printCentre(hang19_2, yCoord++);
+        printCentre(hang20_2, yCoord++);
+        printCentre(hang21_2, yCoord++);
+        printCentre(hang22_2, yCoord++);
+        printCentre(hang23_2, yCoord++);
+    } else if (errors == 4) {
+        printCentre(hang1_3, yCoord++);
+        printCentre(hang2_3, yCoord++);
+        printCentre(hang3_3, yCoord++);
+        printCentre(hang4_3, yCoord++);
+        printCentre(hang5_3, yCoord++);
+        printCentre(hang6_3, yCoord++);
+        printCentre(hang7_3, yCoord++);
+        printCentre(hang8_3, yCoord++);
+        printCentre(hang9_3, yCoord++);
+        printCentre(hang10_3, yCoord++);
+        printCentre(hang11_3, yCoord++);
+        printCentre(hang12_3, yCoord++);
+        printCentre(hang13_3, yCoord++);
+        printCentre(hang14_3, yCoord++);
+        printCentre(hang15_3, yCoord++);
+        printCentre(hang16_3, yCoord++);
+        printCentre(hang17_3, yCoord++);
+        printCentre(hang18_3, yCoord++);
+        printCentre(hang19_3, yCoord++);
+        printCentre(hang20_3, yCoord++);
+        printCentre(hang21_3, yCoord++);
+        printCentre(hang22_3, yCoord++);
+        printCentre(hang23_3, yCoord++);
+    } else if (errors == 5) {
+        printCentre(hang1_4, yCoord++);
+        printCentre(hang2_4, yCoord++);
+        printCentre(hang3_4, yCoord++);
+        printCentre(hang4_4, yCoord++);
+        printCentre(hang5_4, yCoord++);
+        printCentre(hang6_4, yCoord++);
+        printCentre(hang7_4, yCoord++);
+        printCentre(hang8_4, yCoord++);
+        printCentre(hang9_4, yCoord++);
+        printCentre(hang10_4, yCoord++);
+        printCentre(hang11_4, yCoord++);
+        printCentre(hang12_4, yCoord++);
+        printCentre(hang13_4, yCoord++);
+        printCentre(hang14_4, yCoord++);
+        printCentre(hang15_4, yCoord++);
+        printCentre(hang16_4, yCoord++);
+        printCentre(hang17_4, yCoord++);
+        printCentre(hang18_4, yCoord++);
+        printCentre(hang19_4, yCoord++);
+        printCentre(hang20_4, yCoord++);
+        printCentre(hang21_4, yCoord++);
+        printCentre(hang22_4, yCoord++);
+        printCentre(hang23_4, yCoord++);
+    } else if (errors == 6) {
+        printCentre(hang1_5, yCoord++);
+        printCentre(hang2_5, yCoord++);
+        printCentre(hang3_5, yCoord++);
+        printCentre(hang4_5, yCoord++);
+        printCentre(hang5_5, yCoord++);
+        printCentre(hang6_5, yCoord++);
+        printCentre(hang7_5, yCoord++);
+        printCentre(hang8_5, yCoord++);
+        printCentre(hang9_5, yCoord++);
+        printCentre(hang10_5, yCoord++);
+        printCentre(hang11_5, yCoord++);
+        printCentre(hang12_5, yCoord++);
+        printCentre(hang13_5, yCoord++);
+        printCentre(hang14_5, yCoord++);
+        printCentre(hang15_5, yCoord++);
+        printCentre(hang16_5, yCoord++);
+        printCentre(hang17_5, yCoord++);
+        printCentre(hang18_5, yCoord++);
+        printCentre(hang19_5, yCoord++);
+        printCentre(hang20_5, yCoord++);
+        printCentre(hang21_5, yCoord++);
+        printCentre(hang22_5, yCoord++);
+        printCentre(hang23_5, yCoord++);
+    } else if (errors == 7) {
+        printCentre(hang1_6, yCoord++);
+        printCentre(hang2_6, yCoord++);
+        printCentre(hang3_6, yCoord++);
+        printCentre(hang4_6, yCoord++);
+        printCentre(hang5_6, yCoord++);
+        printCentre(hang6_6, yCoord++);
+        printCentre(hang7_6, yCoord++);
+        printCentre(hang8_6, yCoord++);
+        printCentre(hang9_6, yCoord++);
+        printCentre(hang10_6, yCoord++);
+        printCentre(hang11_6, yCoord++);
+        printCentre(hang12_6, yCoord++);
+        printCentre(hang13_6, yCoord++);
+        printCentre(hang14_6, yCoord++);
+        printCentre(hang15_6, yCoord++);
+        printCentre(hang16_6, yCoord++);
+        printCentre(hang17_6, yCoord++);
+        printCentre(hang18_6, yCoord++);
+        printCentre(hang19_6, yCoord++);
+        printCentre(hang20_6, yCoord++);
+        printCentre(hang21_6, yCoord++);
+        printCentre(hang22_6, yCoord++);
+        printCentre(hang23_6, yCoord++);
+    } else {
+        // ERROR
+    }
+
+}
+
+/// EOF

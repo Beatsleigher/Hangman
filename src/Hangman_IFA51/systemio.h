@@ -17,10 +17,10 @@
 ///         and levels in the game.
 ///////////////////////////////////////
 struct WordCategories {
-    char easyWords[1200][5]; // Really super-easy words...
-    char mediumWords[1200][15]; // Some more complex words...
-    char hardWords[1200][20]; // This should be semi-tricky
-    char insaneWords[200][125]; // This. IS. SPARTAAA
+    char easyWords[1200][11]; // Really super-easy words...
+    char mediumWords[1200][19]; // Some more complex words...
+    char hardWords[1200][23]; // This should be semi-tricky
+    char insaneWords[200][127]; // This. IS. SPARTAAA
 };
 
 ///////////////////////////////////////

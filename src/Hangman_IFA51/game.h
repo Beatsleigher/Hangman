@@ -13,6 +13,13 @@
 #include "systemio.h"
 #include "words.h"
 
+// File definitions
+#define LEVEL_EASY 0
+#define LEVEL_MEDIUM 1
+#define LEVEL_HARD 2
+#define LEVEL_INSANE 3
+#define QUIT_GAME -1
+
 ///////////////////////////////////////
 /// \brief  Shows the menu for the game.
 ///////////////////////////////////////
