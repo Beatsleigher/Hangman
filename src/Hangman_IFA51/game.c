@@ -41,6 +41,7 @@
 #include <sys/stat.h>
 #include <stdio.h>
 #include <conio.h>
+#include <time.h>
 
 int showGameMenu() {
     clearScreen();
@@ -247,13 +248,15 @@ void executeGame(struct WordCategories words) {
     printStatusBarMsg("Seeding random number...");
 
     // Plant seed
-    srand(468164894);
+    srand(time(NULL));
 
     // Randomly choose a word, depending on the level selected.
     printStatusBarMsg("Randomly choosing a word...");
     Sleep(500);
     char randomWord[150];
     int randomIndex = rand() % 20;
+    //printf("%d", randomIndex);
+    getchar();
     switch (selectedLevel) {
         case 0: // Level easy
             strcpy(randomWord, words.easyWords[randomIndex]);
@@ -295,7 +298,7 @@ void executeGame(struct WordCategories words) {
     char typedChar = "\0";
 
     /** TODO: REMOVE THIS FROM CODE! **/
-    strcpy(randomWord, "testen");
+    //strcpy(randomWord, "testen");
 
     char correctLetters[sizeof(randomWord)][1];
     int indexOfCorrectLetters = 0;

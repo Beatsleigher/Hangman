@@ -52,7 +52,7 @@ int main() {
     system("color 0a"); // Set console colour to black background, light green text
 
     // Set window size
-    SMALL_RECT windowSize = {0, 0, 180, 80};
+    SMALL_RECT windowSize = { 0, 0, 180, 80 };
     SetConsoleWindowInfo(hConsole, 1, &windowSize);
 
     printProgressBar(20, 0);
