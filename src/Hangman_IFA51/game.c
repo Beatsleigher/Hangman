@@ -294,10 +294,12 @@ void executeGame(struct WordCategories words) {
     int amountOfErrors = 0;
     char typedChar = "\0";
 
-    char correctLetters[125];
+    /** TODO: REMOVE THIS FROM CODE! **/
+    strcpy(randomWord, "testen");
+
+    char correctLetters[sizeof(randomWord)][1];
     int indexOfCorrectLetters = 0;
 
-    strcpy(randomWord, "test");
 
     /**
         Jump in to the game loop.
@@ -327,8 +329,9 @@ void executeGame(struct WordCategories words) {
             break;
         }
 
-        if (strcmp(randomWord, correctLetters) == 0) {
-            // User has WON! YAAAAAY!
+        if (indexOfCorrectLetters == strlen(randomWord)) {
+            // You have probably won?
+            Sleep(500);
             printGameWonScreen();
             runGame = false;
             break;
@@ -357,12 +360,13 @@ void executeGame(struct WordCategories words) {
                 if (charPosition == 1) {
                     xCoord = (getConsoleLen() / 2 - strlen(randomWord)) + (foundChar - randomWord + 1);
                 } else if (charPosition == strlen(randomWord)) {
-                    xCoord = (getConsoleLen() / 2 + strlen(randomWord) / 2 + 1);
+                    xCoord = (getConsoleLen() / 2 + strlen(randomWord) - 1);
                 } else {
                     xCoord = (getConsoleLen() / 2 - strlen(randomWord)) + ((foundChar - randomWord) * 2) + 1;
                 }
 
-                strcpy(correctLetters[charPosition], foundChar);
+                //strcat(correctLetters[charPosition], foundChar);
+                indexOfCorrectLetters++;
                 setCursorPosition(xCoord, getConsoleHeight() - 2);
                 printf("%c", typedChar);
                 foundChar = strchr(foundChar + 1, typedChar);
@@ -377,4 +381,39 @@ void executeGame(struct WordCategories words) {
         }
 
     }
+
 }
+
+bool isAnagram(const char *str1, const char *str2) {
+
+    /*
+     * Code from www.programmingsimplified.com/c/source-code/c-anagram-program.
+     * Modified due to lacking readability...
+     */
+
+    int first[26] = { 0 },
+        second[26] = { 0 },
+        index = 0;
+
+    while (str1[index] != '\0') {
+        first[str1[index] - 'a']++;
+        index++;
+    }
+
+    index = 0;
+
+    while (str2[index] != '\0') {
+        second[str2[index] - 'a']++;
+        index++;
+    }
+
+    for (index = 0; index < 26; index++) {
+        if (first[index] != second[index]) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+// EOF

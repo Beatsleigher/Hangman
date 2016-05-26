@@ -26,7 +26,7 @@ int main() {
     //showGameOver();
     //return 0;
 
-    char *by = "By Simon C., Patrick M., Sergey S.";
+    char *by = "By Simon C., Patrick M.";
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
     WORD saved_attributes;
@@ -127,19 +127,20 @@ int main() {
     printProgressBar(100, 75);
 
     Sleep(2000);
+
     clearScreen();
-///    printWelcomeScreen();
+    printWelcomeScreen();
 
     // Wait for user input, then open menu
     printCentre("Hit [ ENTER ] to continue!", (getConsoleHeight() / 2) + 5);
     getchar();
 
 
-///    // Clear screen and send user to main menu
-///    clearScreen();
-///    showGameMenu();
-///
-///    executeGame(wordCategories);
+    // Clear screen and send user to main menu
+//    clearScreen();
+//    showGameMenu();
+//
+//    executeGame(wordCategories);
 
     // When game exits, go to main menu.
     // Don't show complete intro again.

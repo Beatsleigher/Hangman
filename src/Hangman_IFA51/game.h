@@ -43,4 +43,10 @@ int selectedLevel;
 ///////////////////////////////////////
 void executeGame(struct WordCategories words);
 
+///////////////////////////////////////
+/// \brief  Takes two arguments (strings).
+///         Checks if these two strings
+///         are anagrams.
+///////////////////////////////////////
+bool isAnagram(const char *str1, const char *str2);
 #endif // GAME_H_INCLUDED
