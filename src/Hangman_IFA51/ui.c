@@ -1124,7 +1124,7 @@ void printGameWonScreen() {
 
 }
 
-void printHelp(int topic) {
+void printHelp(int topic, bool show) {
     char topics[][16] = {
         "General",
         "Level Selection",
@@ -1254,6 +1254,13 @@ void printHelp(int topic) {
         }
     }
 
+    if (show) {
+        // Show the contents of the selected menu item.
+
+    } else {
+        // Show general introduction to the welcome screen.
+
+    }
 
 }
 

@@ -293,6 +293,6 @@ void printGameWonScreen();
 ///         some logic for displaying
 ///         different topics.
 ///////////////////////////////////////
-void printHelp(int topic);
+void printHelp(int topic, bool show);
 
 #endif // UI_H_INCLUDED

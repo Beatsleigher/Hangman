@@ -72,9 +72,9 @@ int main() {
 
 
     /** BEGIN: TEST CODE */
-    printHelp(TOPIC_GENERAL);
-    getchar();
-    return 0;
+    ///printHelp(TOPIC_GENERAL);
+    ///getchar();
+    ///return 0;
     /** END: TEST CODE */
 
     // Create directories needed by the program
@@ -160,17 +160,67 @@ int main() {
             int charKey = 0;
             int selectedTopic = TOPIC_GENERAL;
 
-            printHelp(selectedTopic);
+            printHelp(selectedTopic, false);
 
             do {
                 charKey = getchar();
 
                 if (charKey == UP_ARROW) {
+                    switch (selectedTopic) {
+                        case TOPIC_GENERAL:
+                            // Do nothing
+                            break;
+                        case TOPIC_LEVEL_SELECTION:
+                            printHelp((selectedTopic = TOPIC_GENERAL), false);
+                            break;
+                        case TOPIC_GAMEPLAY:
+                            printHelp((selectedTopic = TOPIC_LEVEL_SELECTION), false);
+                            break;
+                        case TOPIC_LEVEL_EASY:
+                            printHelp((selectedTopic = TOPIC_GAMEPLAY), false);
+                            break;
+                        case TOPIC_LEVEL_MEDIUM:
+                            printHelp((selectedTopic = TOPIC_LEVEL_EASY), false);
+                            break;
+                        case TOPIC_LEVEL_HARD:
+                            printHelp((selectedTopic = TOPIC_LEVEL_MEDIUM), false);
+                            break;
+                        case TOPIC_LEVEL_INSANE:
+                            printHelp((selectedTopic = TOPIC_LEVEL_HARD), false);
+                            break;
+                        default:
 
+                            break;
+                    }
                 } else if (charKey == DOWN_ARROW) {
+                    switch (selectedTopic) {
+                        case TOPIC_GENERAL:
+                            printHelp((selectedTopic = TOPIC_LEVEL_SELECTION), false);
+                            break;
+                        case TOPIC_LEVEL_SELECTION:
+                            printHelp((selectedTopic = TOPIC_GAMEPLAY), false);
+                            break;
+                        case TOPIC_GAMEPLAY:
+                            printHelp((selectedTopic = TOPIC_LEVEL_EASY), false);
+                            break;
+                        case TOPIC_LEVEL_EASY:
+                            printHelp((selectedTopic = TOPIC_LEVEL_MEDIUM), false);
+                            break;
+                        case TOPIC_LEVEL_MEDIUM:
+                            printHelp((selectedTopic = TOPIC_LEVEL_HARD), false);
+                            break;
+                        case TOPIC_LEVEL_HARD:
+                            printHelp((selectedTopic = TOPIC_LEVEL_INSANE), false);
+                            break;
+                        case TOPIC_LEVEL_INSANE:
+                            // Do nothing
+                            break;
+                        default:
 
+                            break;
+                    }
                 } else if (charKey == RETURN_KEY) {
-
+                    printHelp(selectedTopic, true);
                 } else {
                     // Nothing to do, really...
                 }
