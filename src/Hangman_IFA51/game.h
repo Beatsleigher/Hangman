@@ -19,6 +19,21 @@
 #define LEVEL_HARD 2
 #define LEVEL_INSANE 3
 #define QUIT_GAME -1
+#define SHOW_HELP -3
+
+#define UP_ARROW 72//22472//0x26
+#define DOWN_ARROW 80//22480//0x28
+#define W_KEY 119//0x57
+#define S_KEY 115//0x53
+#define PG_UP 73//22473
+#define PG_DWN 81//22481
+#define E_KEY 101
+#define M_KEY 109
+#define H_KEY 104
+#define I_KEY 105
+#define RETURN_KEY 0x0D
+#define ESC_KEY 27
+#define QUESTION_MARK_KEY 63
 
 ///////////////////////////////////////
 /// \brief  Shows the menu for the game.
@@ -49,4 +64,19 @@ void executeGame(struct WordCategories words);
 ///         are anagrams.
 ///////////////////////////////////////
 bool isAnagram(const char *str1, const char *str2);
+
+///////////////////////////////////////
+/// \brief  Converts all the chars in a
+///         string to their lower-case
+///         respective counterparts.
+///////////////////////////////////////
+char* toLower(char *str);
+
+///////////////////////////////////////
+/// \brief  Removes all leading and
+///         trailing whitespace from a
+///         string.
+///////////////////////////////////////
+char* trim(char *str);
+
 #endif // GAME_H_INCLUDED

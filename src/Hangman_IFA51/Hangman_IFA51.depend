@@ -40,7 +40,7 @@
 1464171190 c:\users\sc\documents\git\_hangman\src\hangman_ifa51\systemio.h
 	<stdbool.h>
 
-1464261061 source:c:\users\sc\documents\git\_hangman\src\hangman_ifa51\main.c
+1464361288 source:c:\users\sc\documents\git\_hangman\src\hangman_ifa51\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -74,11 +74,11 @@
 	<windowsx.h>
 	<sys/param.h>
 
-1464193963 c:\users\sc\documents\git\_hangman\src\hangman_ifa51\ui.h
+1464365763 c:\users\sc\documents\git\_hangman\src\hangman_ifa51\ui.h
 	<windows.h>
 	<stdbool.h>
 
-1464194859 source:c:\users\sc\documents\git\_hangman\src\hangman_ifa51\ui.c
+1464364643 source:c:\users\sc\documents\git\_hangman\src\hangman_ifa51\ui.c
 	"ui.h"
 	"systemio.h"
 	"words.h"
@@ -95,7 +95,7 @@
 	<conio.h>
 	<stdbool.h>
 
-1464252758 source:c:\users\sc\documents\git\_hangman\src\hangman_ifa51\game.c
+1464348618 source:c:\users\sc\documents\git\_hangman\src\hangman_ifa51\game.c
 	"game.h"
 	"ui.h"
 	"words.h"
@@ -111,8 +111,9 @@
 	<sys/stat.h>
 	<stdio.h>
 	<conio.h>
+	<time.h>
 
-1464250540 c:\users\sc\documents\git\_hangman\src\hangman_ifa51\game.h
+1464348612 c:\users\sc\documents\git\_hangman\src\hangman_ifa51\game.h
 	<stdbool.h>
 	"systemio.h"
 	"words.h"

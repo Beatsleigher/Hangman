@@ -321,7 +321,8 @@ void printMainMenu(int selection) {
     *wKey = "\tW / UP\t\t-> Cursor Up",
     *sKey = "\tS / DOWN\t-> Cursor Down",
     *returnKey = "\tENTER\t\t-> Confirm Selection",
-    *escKey = "\tESC\t\t-> Exit Game";
+    *escKey = "\tESC\t\t-> Exit Game",
+    *questionMarkKey = "\t?\t\t-> Help";
 
     // Print title to top of screen
     printCentre(l15, 1);
@@ -343,6 +344,7 @@ void printMainMenu(int selection) {
     printLeft(sKey, 17);
     printLeft(returnKey, 18);
     printLeft(escKey, 19);
+    printLeft(questionMarkKey, 20);
 
     // Clear menu items
     // Just print whitespace.
@@ -1119,6 +1121,139 @@ void printGameWonScreen() {
 
     printCentre("Press [ ENTER ] to Continue", yCoord + 1);
     getchar();
+
+}
+
+void printHelp(int topic) {
+    char topics[][16] = {
+        "General",
+        "Level Selection",
+        "Gameplay",
+        "Level Easy",
+        "Level Medium",
+        "Level Hard",
+        "level Insane"
+    };
+    char topicsSelected[][22] = {
+        ">> General",
+        ">> Level Selection",
+        ">> Gameplay",
+        ">> Level Easy",
+        ">> Level Medium",
+        ">> Level Hard",
+        ">> Level Insane"
+    };
+
+    char *helpGeneral = "Help\xCD\xCDGeneral",
+         *helpLevelSelection = "Help\xCD\xCDLevel Selection",
+         *helpGameplay = "Help\xCD\xCDGameplay",
+         *helpLevelEasy = "Help\xCD\xCDLevel Easy",
+         *helpLevelMedium = "Help\xCD\xCDLevel Medium",
+         *helpLevelHard = "Help\xCD\xCDLevel Hard",
+         *helpLevelInsane = "Help\xCD\xCDLevel Insane";
+
+    double divider = 4;
+
+     // Print box around window border
+
+    /// Print top row
+    for (int i = 0; i < getConsoleLen(); i++) {
+        setCursorPosition(i, 0);
+        if (i == 0) {
+            printf("\xC9");
+        } else if (i == getConsoleLen() - 1) {
+            printf("\xBB");
+        } else if (i == getConsoleLen() / divider) {
+            printf("\xCB");
+        } else {
+            printf("\xCD");
+        }
+    }
+    switch (topic) {
+        case TOPIC_GENERAL:
+            setCursorPosition((getConsoleLen() + (getConsoleLen() / divider)) / 2 - strlen(helpGeneral) / 2, 0);
+            printf(helpGeneral);
+            //printTopCentre("Help\xCD\xCDGeneral");
+            break;
+        case TOPIC_LEVEL_SELECTION:
+            setCursorPosition((getConsoleLen() + (getConsoleLen() / divider)) / 2 - strlen(helpGeneral) / 2, 0);
+            printf(helpLevelSelection);
+            break;
+        case TOPIC_GAMEPLAY:
+            setCursorPosition((getConsoleLen() + (getConsoleLen() / divider)) / 2 - strlen(helpGeneral) / 2, 0);
+            printf(helpGameplay);
+            break;
+        case TOPIC_LEVEL_EASY:
+            setCursorPosition((getConsoleLen() + (getConsoleLen() / divider)) / 2 - strlen(helpGeneral) / 2, 0);
+            printf(helpLevelEasy);
+            break;
+        case TOPIC_LEVEL_MEDIUM:
+            setCursorPosition((getConsoleLen() + (getConsoleLen() / divider)) / 2 - strlen(helpGeneral) / 2, 0);
+            printf(helpLevelMedium);
+            break;
+        case TOPIC_LEVEL_HARD:
+            setCursorPosition((getConsoleLen() + (getConsoleLen() / divider)) / 2 - strlen(helpGeneral) / 2, 0);
+            printf(helpLevelHard);
+            break;
+        case TOPIC_LEVEL_INSANE:
+            setCursorPosition((getConsoleLen() + (getConsoleLen() / divider)) / 2 - strlen(helpGeneral) / 2, 0);
+            printf(helpLevelInsane);
+            break;
+        default:
+            break;
+    }
+
+    /// Print sides
+    for (int i = 1; i < getConsoleHeight(); i++) {
+        clearLine(i);
+        printLeft("\xBA", i);
+        printRight("\xBA", i);
+        setCursorPosition(getConsoleLen() / divider, i);
+        printf("\xBA");
+        if (i == 4) {
+            for (int j = 0; j != getConsoleLen() / divider + 1; j++) {
+                //printLeft("\xCC\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xB9", i);
+                if (j == 0) {
+                    printLeft("\xCC", 4);
+                } else if (j == getConsoleLen() / divider) {
+                    setCursorPosition(j, 4);
+                    printf("\xB9");
+                } else {
+                    setCursorPosition(j, 4);
+                    printf("\xCD");
+                }
+            }
+        }
+    }
+
+    /// Print bottom row
+    for (int i = 0; i < getConsoleLen(); i++) {
+        setCursorPosition(i, getConsoleHeight() - 1);
+        if (i == 0) {
+            printf("\xC8");
+        } else if (i == getConsoleLen() - 1) {
+            printf("\xBC");
+        } else if (i == getConsoleLen() / divider) {
+            printf("\xCA");
+        } else {
+            printf("\xCD");
+        }
+    }
+    setCursorPosition(0, 0);
+
+    setCursorPosition((getConsoleLen() / divider) / 2 - strlen("Index") / 2, 3);
+    printf("Index");
+
+    short yCoord = 3;
+    for (int i = 0; i < sizeof(topics) / sizeof(topics[0]); i++) {
+        setCursorPosition((getConsoleLen() / divider) / 2 - strlen(topics[i]) / 2, yCoord += 3);
+        if (i == topic) {
+            printf(topicsSelected[i]);
+        } else {
+            printf(topics[i]);
+        }
+    }
+
 
 }
 

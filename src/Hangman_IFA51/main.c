@@ -69,6 +69,14 @@ int main() {
 //    printMultilineMsg("Descriptive Message", messageLines, 5);
 //    return 0;
 
+
+
+    /** BEGIN: TEST CODE */
+    printHelp(TOPIC_GENERAL);
+    getchar();
+    return 0;
+    /** END: TEST CODE */
+
     // Create directories needed by the program
     createDirectories();
 
@@ -145,8 +153,32 @@ int main() {
     // When game exits, go to main menu.
     // Don't show complete intro again.
     // Make it look like a real game.
-    while (showGameMenu() != QUIT_GAME) {
-        executeGame(wordCategories);
+    int result = -5; // Some random value
+    while ((result = showGameMenu()) != QUIT_GAME) {
+        if (result == SHOW_HELP) {
+            clearScreen();
+            int charKey = 0;
+            int selectedTopic = TOPIC_GENERAL;
+
+            printHelp(selectedTopic);
+
+            do {
+                charKey = getchar();
+
+                if (charKey == UP_ARROW) {
+
+                } else if (charKey == DOWN_ARROW) {
+
+                } else if (charKey == RETURN_KEY) {
+
+                } else {
+                    // Nothing to do, really...
+                }
+
+            } while (charKey != ESC_KEY);
+        } else {
+            executeGame(wordCategories);
+        }
     }
 
     // Print farewell, exit program.

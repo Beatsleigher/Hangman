@@ -7,6 +7,14 @@
 #ifndef UI_H_INCLUDED
 #define UI_H_INCLUDED
 
+#define TOPIC_GENERAL 0
+#define TOPIC_GAMEPLAY 1
+#define TOPIC_LEVEL_SELECTION 2
+#define TOPIC_LEVEL_EASY 3
+#define TOPIC_LEVEL_MEDIUM 4
+#define TOPIC_LEVEL_HARD 5
+#define TOPIC_LEVEL_INSANE 6
+
 #include <windows.h>
 #include <stdbool.h>
 
@@ -277,5 +285,14 @@ void printGameWordPlaceholder(char *word);
 ///         Congrats to them!
 ///////////////////////////////////////
 void printGameWonScreen();
+
+///////////////////////////////////////
+/// \brief  Prints the help screen.
+///         Unlike most methods in this
+///         header, this method contains
+///         some logic for displaying
+///         different topics.
+///////////////////////////////////////
+void printHelp(int topic);
 
 #endif // UI_H_INCLUDED

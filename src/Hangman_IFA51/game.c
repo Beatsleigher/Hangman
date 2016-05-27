@@ -4,25 +4,7 @@
 // Copies and modifications of this file are prohibited and punishable by law,
 // unless done with EXPRESS PERMISSION by the author of this file.
 
-// #DEFINES
-#define UP_ARROW 72//22472//0x26
-#define DOWN_ARROW 80//22480//0x28
-#define W_KEY 119//0x57
-#define S_KEY 115//0x53
-#define PG_UP 73//22473
-#define PG_DWN 81//22481
-#define E_KEY 101
-#define M_KEY 109
-#define H_KEY 104
-#define I_KEY 105
-#define RETURN_KEY 0x0D
-#define ESC_KEY 27
-
-#define LEVEL_EASY 0
-#define LEVEL_MEDIUM 1
-#define LEVEL_HARD 2
-#define LEVEL_INSANE 3
-#define QUIT_GAME -1
+// #DEFINES => Header
 
 // Project includes
 #include "game.h"
@@ -59,7 +41,7 @@ int showGameMenu() {
     // Read character. Wait for arrow keys and return.
     do {
         charKey = _getch();
-//        printf("%i", charKey);
+        printf("%i", charKey);
         if (charKey == UP_ARROW) {
             switch (selectedLevel) {
                 case 0: // Level easy
@@ -209,6 +191,8 @@ int showGameMenu() {
             selectedLevel = LEVEL_INSANE;
         } else if (charKey == ESC_KEY) {
             return QUIT_GAME;
+        } else if (charKey == QUESTION_MARK_KEY) {
+            return SHOW_HELP;
         } else {
             /*printError("Error selecting level! Press ENTER to try again!");
             clearScreen();
@@ -255,32 +239,30 @@ void executeGame(struct WordCategories words) {
     Sleep(500);
     char randomWord[150];
     int randomIndex = rand() % 20;
-    //printf("%d", randomIndex);
-    getchar();
     switch (selectedLevel) {
         case 0: // Level easy
-            strcpy(randomWord, words.easyWords[randomIndex]);
+            strcpy(randomWord, trim(toLower(words.easyWords[randomIndex])));
             char *word = words.easyWords[randomIndex];
             //setCursorPosition(getConsoleLen() / 2 - strlen(word) / 2, getConsoleHeight() - 2);
-            printf("%i", randomIndex);
+            //printf("%i", randomIndex);
             printStatusBarMsg("A word has been selected!");
             Sleep(1000);
             printStatusBarMsg("Good luck!");
             break;
         case 1: // Level medium
-            strcpy(randomWord, words.mediumWords[randomIndex]);
+            strcpy(randomWord, trim(toLower(words.mediumWords[randomIndex])));
             printStatusBarMsg("A word has been selected!");
             Sleep(1000);
             printStatusBarMsg("Good luck!");
             break;
         case 2: // level hard
-            strcpy(randomWord, words.hardWords[randomIndex]);
+            strcpy(randomWord, trim(toLower(words.hardWords[randomIndex])));
             printStatusBarMsg("A word has been selected!");
             Sleep(1000);
             printStatusBarMsg("Good luck!");
             break;
         case 3: // Level insane.
-            strcpy(randomWord, words.insaneWords[randomIndex]);
+            strcpy(randomWord, trim(toLower(words.insaneWords[randomIndex])));
             printStatusBarMsg("A word has been selected!");
             Sleep(1000);
             printStatusBarMsg("Prepare to be defeated!");
@@ -291,6 +273,9 @@ void executeGame(struct WordCategories words) {
             strcpy(errorLines[2], "Will exit to main menu!");
             //printMultilineError(errorLines, 3);
     }
+
+    printCentre(randomWord, getConsoleHeight() - 3);
+    getchar();
 
     // Stuff for in-game display
     char errors[7][1];
@@ -417,6 +402,40 @@ bool isAnagram(const char *str1, const char *str2) {
     }
 
     return true;
+}
+
+char* toLower(char *str) {
+    for (int i = 0; i < strlen(str); i++) {
+        char currentChar = str[i];
+        currentChar = tolower(currentChar);
+        str[i] = currentChar;
+    }
+    return str;
+}
+
+char* trim(char *str) {
+    char *end;
+
+  // Trim leading space
+  while(isspace(*str)) {
+    str++;
+  }
+
+  if(*str == 0) {  // All spaces?
+    return str;
+  }
+
+  // Trim trailing space
+  end = str + strlen(str) - 1;
+  while(end > str && isspace(*end)) {
+        end--;
+  }
+
+  // Write new null terminator
+  *(end + 1) = 0;
+
+  return str;
+
 }
 
 // EOF
