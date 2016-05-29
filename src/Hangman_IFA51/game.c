@@ -41,7 +41,7 @@ int showGameMenu() {
     // Read character. Wait for arrow keys and return.
     do {
         charKey = _getch();
-        printf("%i", charKey);
+//        printf("%i", charKey);
         if (charKey == UP_ARROW) {
             switch (selectedLevel) {
                 case 0: // Level easy
@@ -239,6 +239,12 @@ void executeGame(struct WordCategories words) {
     Sleep(500);
     char randomWord[150];
     int randomIndex = rand() % 20;
+
+
+//    printf("%d", randomIndex);
+//    getchar();
+
+
     switch (selectedLevel) {
         case 0: // Level easy
             strcpy(randomWord, trim(toLower(words.easyWords[randomIndex])));

@@ -8,8 +8,8 @@
 #define UI_H_INCLUDED
 
 #define TOPIC_GENERAL 0
-#define TOPIC_GAMEPLAY 1
-#define TOPIC_LEVEL_SELECTION 2
+#define TOPIC_LEVEL_SELECTION 1
+#define TOPIC_GAMEPLAY 2
 #define TOPIC_LEVEL_EASY 3
 #define TOPIC_LEVEL_MEDIUM 4
 #define TOPIC_LEVEL_HARD 5
@@ -294,5 +294,22 @@ void printGameWonScreen();
 ///         different topics.
 ///////////////////////////////////////
 void printHelp(int topic, bool show);
+
+///////////////////////////////////////
+/// \brief  Prints the actual side menu
+///         for the help menu.
+///         This method contains no
+///         logic whatsoever, really...
+///////////////////////////////////////
+void printHelpMenu(int topic);
+
+///////////////////////////////////////
+/// \brief  Prints different help texts
+///         for the help menu.
+///         Each line of text is max.
+///         82 chars long, and max 27
+///         lines!
+///////////////////////////////////////
+void printHelpText(int topic);
 
 #endif // UI_H_INCLUDED

@@ -1223,6 +1223,10 @@ void printHelp(int topic, bool show) {
                     printf("\xCD");
                 }
             }
+        } else if (i == getConsoleHeight() / 2 - 1) {
+            printRight("UP", i);
+        } else if (i == getConsoleHeight() / 2 + 1) {
+            printRight("DWN", i);
         }
     }
 
@@ -1244,15 +1248,8 @@ void printHelp(int topic, bool show) {
     setCursorPosition((getConsoleLen() / divider) / 2 - strlen("Index") / 2, 3);
     printf("Index");
 
-    short yCoord = 3;
-    for (int i = 0; i < sizeof(topics) / sizeof(topics[0]); i++) {
-        setCursorPosition((getConsoleLen() / divider) / 2 - strlen(topics[i]) / 2, yCoord += 3);
-        if (i == topic) {
-            printf(topicsSelected[i]);
-        } else {
-            printf(topics[i]);
-        }
-    }
+    // Print menu on left side.
+    printHelpMenu(topic);
 
     if (show) {
         // Show the contents of the selected menu item.
@@ -1262,6 +1259,72 @@ void printHelp(int topic, bool show) {
 
     }
 
+}
+
+void printHelpMenu(int topic) {
+    char topics[][16] = {
+        "General",
+        "Level Selection",
+        "Gameplay",
+        "Level Easy",
+        "Level Medium",
+        "Level Hard",
+        "level Insane"
+    };
+    char topicsSelected[][22] = {
+        ">> General",
+        ">> Level Selection",
+        ">> Gameplay",
+        ">> Level Easy",
+        ">> Level Medium",
+        ">> Level Hard",
+        ">> Level Insane"
+    };
+
+    double divider = 4;
+
+    short yCoord = 3;
+    for (int i = 0; i < sizeof(topics) / sizeof(topics[0]); i++) {
+        setCursorPosition((getConsoleLen() / divider) / 2 - strlen(topics[i]) / 2, yCoord + 3);
+        // Clear text and jump back to position to print new text
+        printf("                  ");
+        setCursorPosition((getConsoleLen() / divider) / 2 - strlen(topics[i]) / 2, yCoord += 3);
+        if (i == topic) {
+            printf(topicsSelected[i]);
+        } else {
+            printf(topics[i]);
+        }
+    }
+}
+
+void printHelpText(int topic) {
+    char helpTexts[][27][82] = {
+        // No topic selected
+        {
+            // Enter up to 27 strings here...
+        },
+
+        // General help
+        {  },
+
+        // Level selection
+        {  },
+
+        // Gameplay
+        {  },
+
+        // Level easy
+        {  },
+
+        // Level medium
+        {  },
+
+        // Level hard
+        {  },
+
+        // Level insane
+        {  }
+    };
 }
 
 /// EOF

@@ -118,3 +118,93 @@
 	"systemio.h"
 	"words.h"
 
+1464556872 source:c:\users\simon\documents\git\hangman\src\hangman_ifa51\game.c
+	"game.h"
+	"ui.h"
+	"words.h"
+	"systemio.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<unistd.h>
+	<wininet.h>
+	<windows.h>
+	<windowsx.h>
+	<sys/types.h>
+	<sys/stat.h>
+	<stdio.h>
+	<conio.h>
+	<time.h>
+
+1464384736 c:\users\simon\documents\git\hangman\src\hangman_ifa51\game.h
+	<stdbool.h>
+	"systemio.h"
+	"words.h"
+
+1464286384 c:\users\simon\documents\git\hangman\src\hangman_ifa51\systemio.h
+	<stdbool.h>
+
+1464286384 c:\users\simon\documents\git\hangman\src\hangman_ifa51\words.h
+
+1464556994 c:\users\simon\documents\git\hangman\src\hangman_ifa51\ui.h
+	<windows.h>
+	<stdbool.h>
+
+1464556758 source:c:\users\simon\documents\git\hangman\src\hangman_ifa51\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<windows.h>
+	<winioctl.h>
+	"main.h"
+	"systemio.h"
+	"words.h"
+	"ui.h"
+	"game.h"
+
+1464286384 c:\users\simon\documents\git\hangman\src\hangman_ifa51\main.h
+
+1464286384 source:c:\users\simon\documents\git\hangman\src\hangman_ifa51\systemio.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<unistd.h>
+	<wininet.h>
+	<windows.h>
+	<windowsx.h>
+	<sys/types.h>
+	<sys/stat.h>
+	<stdio.h>
+	"systemio.h"
+
+1464556394 source:c:\users\simon\documents\git\hangman\src\hangman_ifa51\ui.c
+	"ui.h"
+	"systemio.h"
+	"words.h"
+	"game.h"
+	<windows.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<unistd.h>
+	<wininet.h>
+	<windows.h>
+	<windowsx.h>
+	<sys/param.h>
+	<conio.h>
+	<stdbool.h>
+
+1464286384 source:c:\users\simon\documents\git\hangman\src\hangman_ifa51\words.c
+	"systemio.h"
+	"words.h"
+	"ui.h"
+	<windows.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<unistd.h>
+	<wininet.h>
+	<windows.h>
+	<windowsx.h>
+	<sys/param.h>
+

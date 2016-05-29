@@ -163,7 +163,7 @@ int main() {
             printHelp(selectedTopic, false);
 
             do {
-                charKey = getchar();
+                charKey = getch();
 
                 if (charKey == UP_ARROW) {
                     switch (selectedTopic) {
@@ -171,22 +171,22 @@ int main() {
                             // Do nothing
                             break;
                         case TOPIC_LEVEL_SELECTION:
-                            printHelp((selectedTopic = TOPIC_GENERAL), false);
+                            printHelpMenu((selectedTopic = TOPIC_GENERAL), false);
                             break;
                         case TOPIC_GAMEPLAY:
-                            printHelp((selectedTopic = TOPIC_LEVEL_SELECTION), false);
+                            printHelpMenu((selectedTopic = TOPIC_LEVEL_SELECTION), false);
                             break;
                         case TOPIC_LEVEL_EASY:
-                            printHelp((selectedTopic = TOPIC_GAMEPLAY), false);
+                            printHelpMenu((selectedTopic = TOPIC_GAMEPLAY), false);
                             break;
                         case TOPIC_LEVEL_MEDIUM:
-                            printHelp((selectedTopic = TOPIC_LEVEL_EASY), false);
+                            printHelpMenu((selectedTopic = TOPIC_LEVEL_EASY), false);
                             break;
                         case TOPIC_LEVEL_HARD:
-                            printHelp((selectedTopic = TOPIC_LEVEL_MEDIUM), false);
+                            printHelpMenu((selectedTopic = TOPIC_LEVEL_MEDIUM), false);
                             break;
                         case TOPIC_LEVEL_INSANE:
-                            printHelp((selectedTopic = TOPIC_LEVEL_HARD), false);
+                            printHelpMenu((selectedTopic = TOPIC_LEVEL_HARD), false);
                             break;
                         default:
 
@@ -195,22 +195,22 @@ int main() {
                 } else if (charKey == DOWN_ARROW) {
                     switch (selectedTopic) {
                         case TOPIC_GENERAL:
-                            printHelp((selectedTopic = TOPIC_LEVEL_SELECTION), false);
+                            printHelpMenu((selectedTopic = TOPIC_LEVEL_SELECTION), false);
                             break;
                         case TOPIC_LEVEL_SELECTION:
-                            printHelp((selectedTopic = TOPIC_GAMEPLAY), false);
+                            printHelpMenu((selectedTopic = TOPIC_GAMEPLAY), false);
                             break;
                         case TOPIC_GAMEPLAY:
-                            printHelp((selectedTopic = TOPIC_LEVEL_EASY), false);
+                            printHelpMenu((selectedTopic = TOPIC_LEVEL_EASY), false);
                             break;
                         case TOPIC_LEVEL_EASY:
-                            printHelp((selectedTopic = TOPIC_LEVEL_MEDIUM), false);
+                            printHelpMenu((selectedTopic = TOPIC_LEVEL_MEDIUM), false);
                             break;
                         case TOPIC_LEVEL_MEDIUM:
-                            printHelp((selectedTopic = TOPIC_LEVEL_HARD), false);
+                            printHelpMenu((selectedTopic = TOPIC_LEVEL_HARD), false);
                             break;
                         case TOPIC_LEVEL_HARD:
-                            printHelp((selectedTopic = TOPIC_LEVEL_INSANE), false);
+                            printHelpMenu((selectedTopic = TOPIC_LEVEL_INSANE), false);
                             break;
                         case TOPIC_LEVEL_INSANE:
                             // Do nothing
@@ -226,6 +226,7 @@ int main() {
                 }
 
             } while (charKey != ESC_KEY);
+            continue;
         } else {
             executeGame(wordCategories);
         }
