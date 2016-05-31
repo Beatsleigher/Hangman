@@ -38,7 +38,7 @@ int getConsoleHeight() {
     int rows;
 
     GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
-    rows = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
+    rows = csbi.srWindow.Bottom - csbi.srWindow.Top;
 
     return rows;
 }
@@ -1152,7 +1152,7 @@ void printHelp(int topic, bool show) {
          *helpLevelHard = "Help\xCD\xCDLevel Hard",
          *helpLevelInsane = "Help\xCD\xCDLevel Insane";
 
-    double divider = 4;
+
 
      // Print box around window border
 
@@ -1223,11 +1223,12 @@ void printHelp(int topic, bool show) {
                     printf("\xCD");
                 }
             }
-        } else if (i == getConsoleHeight() / 2 - 1) {
-            printRight("UP", i);
-        } else if (i == getConsoleHeight() / 2 + 1) {
-            printRight("DWN", i);
         }
+//        else if (i == getConsoleHeight() / 2 - 1) {
+//            printRight("UP", i);
+//        } else if (i == getConsoleHeight() / 2 + 1) {
+//            printRight("DWN", i);
+//        }
     }
 
     /// Print bottom row
@@ -1253,10 +1254,10 @@ void printHelp(int topic, bool show) {
 
     if (show) {
         // Show the contents of the selected menu item.
-
+        printHelpText(topic);
     } else {
         // Show general introduction to the welcome screen.
-
+        printHelpText(-1);
     }
 
 }
@@ -1281,7 +1282,7 @@ void printHelpMenu(int topic) {
         ">> Level Insane"
     };
 
-    double divider = 4;
+
 
     short yCoord = 3;
     for (int i = 0; i < sizeof(topics) / sizeof(topics[0]); i++) {
@@ -1298,20 +1299,93 @@ void printHelpMenu(int topic) {
 }
 
 void printHelpText(int topic) {
-    char helpTexts[][27][82] = {
+    // Increment the topic param by one, so it can be used with the array(s).
+    topic = topic + 1;
+
+    char helpTexts[][25][82] = {
+          // ================================================================================== <- 82 chars
+
         // No topic selected
         {
-            // Enter up to 27 strings here...
+            // Enter up to 81 strings here...
+            // One page consists of (max.) 27 strings
+            // Three pages worth of help text can be stored in the second array dimension
+            "Welcome to the help menu!",
+            "", // An empty string represents a separator between paragraphs
+            "",
+            "",
+            "This menu will help you find out what you need about this program!",
+            "",
+            "Instructions on use of the Help Menu:",
+            "PG UP / PG DWN\t\t-> Scroll page",
+            "UP / DOWN\t\t-> Select topic",
+            "RETURN\t\t\t-> Open topic",
+            "ESC\t\t\t-> Return to Main Menu",
+            "",
+            "",
+            "",
+            "This program is protected by internal copyright law",
+            "(c) Simon Cahill"
         },
 
         // General help
-        {  },
+        {
+            "GENERAL",
+            "",
+            "",
+            "",
+            "",
+            "Menus:",
+            "\tNavigating within menus in this software is done by using the UP/DOWN ",
+            "\tarrow keys to choose an item, and using the RETURN (ENTER) key to ",
+            "\tconfirm a selection.",
+            "\tSome menus allow for different types of navigation, by using WSAD, or the",
+            "\tpage up/page down keys.",
+            "",
+            "\tThe menus are drawn in such a way, that they do not cause unnecessary",
+            "\twaiting times while choosing different menu items."
+        },
 
         // Level selection
-        {  },
+        {
+            "LEVEL SELECTION",
+            "",
+            "",
+            "",
+            "",
+            "After starting Hangman, you will be greeted by the Level Selection screen.",
+            "Think of this menu as the \"Main menu\" of the game.",
+            "This menu will show you the basic controls for manipulating the menu,",
+            "and contains a list of all the playable levels.",
+            "You have following levels to choose from:",
+            "\tEasy -> 5-8 letters per word, no time limit",
+            "\tMedium -> 16-18 letters per word, 2 min time limit",
+            "\tHard -> 20-22 letters per word, 1 min time limit",
+            "\tInsane -> Up to >100 letters per word, 30 sec. time limit and more!",
+            "",
+            "More information about each level can be found in their respective page",
+            "in the help menu."
+        },
 
         // Gameplay
-        {  },
+        {
+            "GAMEPLAY",
+            "",
+            "",
+            "",
+            "",
+            "The game consists of guessing the letters in a word, until the entire",
+            "word has been revealed.",
+            "To guess a word, simply type it in on the keyboard, the game will do the",
+            "rest.",
+            "If you guess a word correctly, it will be added to the corresponding missing",
+            "space of the word field.",
+            "If, however, you answer a word incorrectly, it will be counted as a \"fail\"",
+            "and more pieces of the hanging man will be shown.",
+            "Once the hanging man is complete, and the trap door opens, the game is over.",
+            "",
+            "Some levels are timed, so be quick!"
+        },
 
         // Level easy
         {  },
@@ -1325,6 +1399,38 @@ void printHelpText(int topic) {
         // Level insane
         {  }
     };
+
+
+    //short xCoord = (getConsoleLen() + (getConsoleLen() / divider)) / 2 - strlen(helpGeneral) / 2
+    short yCoord = 3;
+
+    for (int i = 0; i < sizeof(helpTexts[topic]) / sizeof(helpTexts[topic][0]); i++) {
+        short xCoord = 0;
+        xCoord = getConsoleLen() / divider + 2;
+        setCursorPosition(xCoord, yCoord++);
+        printf(CLEAR_HELP_LINE);
+    }
+
+    yCoord = 3;
+
+    for (int i = 0; i < sizeof(helpTexts[topic]) / sizeof(helpTexts[topic][0]); i++) {
+        char *row = helpTexts[topic][i];
+        short xCoord = 0;
+        if (i == 0) {
+            xCoord = (getConsoleLen() + (getConsoleLen() / divider)) / 2 - strlen(row) / 2;
+        } else {
+            xCoord = getConsoleLen() / divider + 2;
+        }
+        setCursorPosition(xCoord, yCoord++);
+        printf(row);
+    }
+
+}
+
+void setConsoleSize(short width, short height) {
+    char cmd[12];
+    sprintf(cmd, "mode %d, %d", width, height);
+    system(cmd);
 }
 
 /// EOF

@@ -15,6 +15,10 @@
 #define TOPIC_LEVEL_HARD 5
 #define TOPIC_LEVEL_INSANE 6
 
+#define divider 4 // Used to determine where screen will be divided for different purposes.
+
+#define CLEAR_HELP_LINE "                                                                                  "
+
 #include <windows.h>
 #include <stdbool.h>
 
@@ -308,8 +312,16 @@ void printHelpMenu(int topic);
 ///         for the help menu.
 ///         Each line of text is max.
 ///         82 chars long, and max 27
-///         lines!
+///         lines (per page)!
 ///////////////////////////////////////
 void printHelpText(int topic);
+
+///////////////////////////////////////
+/// \brief  Wrapper method to set the
+///         size of the console window.
+///         This method will NOT redraw
+///         and window content!
+///////////////////////////////////////
+void setConsoleSize(short width, short height);
 
 #endif // UI_H_INCLUDED

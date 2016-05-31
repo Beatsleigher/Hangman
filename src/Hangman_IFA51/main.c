@@ -23,8 +23,11 @@ int main() {
     // Clear screen at very beginning to ensure clean output
     system("cls");
 
-    //showGameOver();
-    //return 0;
+//    showGameOver();
+//    return 0;
+
+    // Set window size
+    setConsoleSize(160, 40);
 
     char *by = "By Simon C., Patrick M.";
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -51,9 +54,6 @@ int main() {
     // Easier solution
     system("color 0a"); // Set console colour to black background, light green text
 
-    // Set window size
-    SMALL_RECT windowSize = { 0, 0, 180, 80 };
-    SetConsoleWindowInfo(hConsole, 1, &windowSize);
 
     printProgressBar(20, 0);
 
@@ -75,6 +75,10 @@ int main() {
     ///printHelp(TOPIC_GENERAL);
     ///getchar();
     ///return 0;
+
+///    printf("%d", 81 % 54);
+///    return 0;
+
     /** END: TEST CODE */
 
     // Create directories needed by the program
@@ -137,11 +141,11 @@ int main() {
     Sleep(2000);
 
     clearScreen();
-    printWelcomeScreen();
+    ///printWelcomeScreen();
 
     // Wait for user input, then open menu
-    printCentre("Hit [ ENTER ] to continue!", (getConsoleHeight() / 2) + 5);
-    getchar();
+    ///printCentre("Hit [ ENTER ] to continue!", (getConsoleHeight() / 2) + 5);
+    ///getchar();
 
 
     // Clear screen and send user to main menu
@@ -171,22 +175,22 @@ int main() {
                             // Do nothing
                             break;
                         case TOPIC_LEVEL_SELECTION:
-                            printHelpMenu((selectedTopic = TOPIC_GENERAL), false);
+                            printHelpMenu((selectedTopic = TOPIC_GENERAL));
                             break;
                         case TOPIC_GAMEPLAY:
-                            printHelpMenu((selectedTopic = TOPIC_LEVEL_SELECTION), false);
+                            printHelpMenu((selectedTopic = TOPIC_LEVEL_SELECTION));
                             break;
                         case TOPIC_LEVEL_EASY:
-                            printHelpMenu((selectedTopic = TOPIC_GAMEPLAY), false);
+                            printHelpMenu((selectedTopic = TOPIC_GAMEPLAY));
                             break;
                         case TOPIC_LEVEL_MEDIUM:
-                            printHelpMenu((selectedTopic = TOPIC_LEVEL_EASY), false);
+                            printHelpMenu((selectedTopic = TOPIC_LEVEL_EASY));
                             break;
                         case TOPIC_LEVEL_HARD:
-                            printHelpMenu((selectedTopic = TOPIC_LEVEL_MEDIUM), false);
+                            printHelpMenu((selectedTopic = TOPIC_LEVEL_MEDIUM));
                             break;
                         case TOPIC_LEVEL_INSANE:
-                            printHelpMenu((selectedTopic = TOPIC_LEVEL_HARD), false);
+                            printHelpMenu((selectedTopic = TOPIC_LEVEL_HARD));
                             break;
                         default:
 
@@ -195,22 +199,22 @@ int main() {
                 } else if (charKey == DOWN_ARROW) {
                     switch (selectedTopic) {
                         case TOPIC_GENERAL:
-                            printHelpMenu((selectedTopic = TOPIC_LEVEL_SELECTION), false);
+                            printHelpMenu((selectedTopic = TOPIC_LEVEL_SELECTION));
                             break;
                         case TOPIC_LEVEL_SELECTION:
-                            printHelpMenu((selectedTopic = TOPIC_GAMEPLAY), false);
+                            printHelpMenu((selectedTopic = TOPIC_GAMEPLAY));
                             break;
                         case TOPIC_GAMEPLAY:
-                            printHelpMenu((selectedTopic = TOPIC_LEVEL_EASY), false);
+                            printHelpMenu((selectedTopic = TOPIC_LEVEL_EASY));
                             break;
                         case TOPIC_LEVEL_EASY:
-                            printHelpMenu((selectedTopic = TOPIC_LEVEL_MEDIUM), false);
+                            printHelpMenu((selectedTopic = TOPIC_LEVEL_MEDIUM));
                             break;
                         case TOPIC_LEVEL_MEDIUM:
-                            printHelpMenu((selectedTopic = TOPIC_LEVEL_HARD), false);
+                            printHelpMenu((selectedTopic = TOPIC_LEVEL_HARD));
                             break;
                         case TOPIC_LEVEL_HARD:
-                            printHelpMenu((selectedTopic = TOPIC_LEVEL_INSANE), false);
+                            printHelpMenu((selectedTopic = TOPIC_LEVEL_INSANE));
                             break;
                         case TOPIC_LEVEL_INSANE:
                             // Do nothing
@@ -220,7 +224,7 @@ int main() {
                             break;
                     }
                 } else if (charKey == RETURN_KEY) {
-                    printHelp(selectedTopic, true);
+                    printHelpText(selectedTopic);
                 } else {
                     // Nothing to do, really...
                 }
