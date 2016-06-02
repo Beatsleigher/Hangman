@@ -17,10 +17,36 @@
 
 #define divider 4 // Used to determine where screen will be divided for different purposes.
 
-#define CLEAR_HELP_LINE "                                                                                  "
 
 #include <windows.h>
 #include <stdbool.h>
+#include <string.h>
+
+/**
+###########################################################
+###                       Variables                     ###
+###########################################################
+*/
+
+///////////////////////////////////////
+/// \brief  Contains the amount of spaces
+///         required to clear each line
+///         of the console.
+///////////////////////////////////////
+char clearLineString[2048];
+
+///////////////////////////////////////
+/// \brief  Contains the amount of spaces
+///         required to clear each line
+///         of text in the help menu.
+///////////////////////////////////////
+char clearHelpLineString[2048];
+
+/**
+###########################################################
+###                   Method Prototypes                 ###
+###########################################################
+*/
 
 ///////////////////////////////////////
 /// \brief  Gets the length of the console

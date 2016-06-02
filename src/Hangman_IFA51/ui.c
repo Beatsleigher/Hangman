@@ -87,10 +87,11 @@ void printBottomCentre(char *str) {
 }
 
 void printProgressBar(int percent, int startFrom) {
-    percent = getConsoleLen() / 100 * percent;
+    //percent = (getConsoleLen() / 100) * percent;
+    percent = (getConsoleLen() - 1) * percent / 100;
     for (int i = startFrom; i < percent + 1; i++) {
-            Sleep(50);
-        setCursorPosition(i, getConsoleHeight() - getConsoleHeight());
+        Sleep(5);
+        setCursorPosition(i, 0);
 //        printf("\xDB"); // Full block
 //        printf("\xDC"); // Lower half block
         printf("\xDF"); // Upper half block
@@ -98,19 +99,15 @@ void printProgressBar(int percent, int startFrom) {
 }
 
 void clearScreen() {
-    for (int i = 0; i != getConsoleHeight(); i++) {
-        for (int j = 0; j != getConsoleLen(); j++) {
-            setCursorPosition((short)j, (short)i);
-            printf(" ");
-        }
+    for (short i = 0; i != getConsoleHeight(); i++) {
+        setCursorPosition(0, i);
+        printf(clearLineString);
     }
 }
 
 void clearLine(short row) {
-    for (int i = 0; i != getConsoleLen(); i++) {
-        setCursorPosition(i, row);
-        printf(" ");
-    }
+    setCursorPosition(0, row);
+    printf(clearLineString);
 }
 
 void clearColumn(short col) {
@@ -121,7 +118,7 @@ void clearColumn(short col) {
 }
 
 void clearTopLine() {
-    clearLine(getConsoleHeight() - getConsoleHeight());
+    clearLine(0);
 }
 
 void clearBottomLine() {
@@ -601,6 +598,8 @@ void printGameUI(int selectedLevel, char *randomWord, short errors, char typedCh
             printf("\xBB");
         } else if (i == 14) {
             printf("\xCB");
+        } else if (i == getConsoleLen() - 11) {
+            printf("\xCB");
         } else {
             printf("\xCD");
         }
@@ -629,8 +628,13 @@ void printGameUI(int selectedLevel, char *randomWord, short errors, char typedCh
         printRight("\xBA", i);
         setCursorPosition(14, i);
         printf("\xBA");
+        if (i < 4) {
+            setCursorPosition(getConsoleLen() - 11, i);
+            printf("\xBA");
+        }
         if (i == 3) {
             printLeft("\xCC\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xB9", i);
+            printRight("\xC8\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xB9", i);
         }
     }
 
@@ -1302,7 +1306,7 @@ void printHelpText(int topic) {
     // Increment the topic param by one, so it can be used with the array(s).
     topic = topic + 1;
 
-    char helpTexts[][25][82] = {
+    char helpTexts[][25][100] = {
           // ================================================================================== <- 82 chars
 
         // No topic selected
@@ -1358,7 +1362,7 @@ void printHelpText(int topic) {
             "This menu will show you the basic controls for manipulating the menu,",
             "and contains a list of all the playable levels.",
             "You have following levels to choose from:",
-            "\tEasy -> 5-8 letters per word, no time limit",
+            "\tEasy -> >8-8 letters per word, no time limit",
             "\tMedium -> 16-18 letters per word, 2 min time limit",
             "\tHard -> 20-22 letters per word, 1 min time limit",
             "\tInsane -> Up to >100 letters per word, 30 sec. time limit and more!",
@@ -1384,20 +1388,112 @@ void printHelpText(int topic) {
             "and more pieces of the hanging man will be shown.",
             "Once the hanging man is complete, and the trap door opens, the game is over.",
             "",
-            "Some levels are timed, so be quick!"
+            "All words are loaded up as the game is started, the files are copied to your user",
+            "profile. Word additions are easily possible, just add your favourite words to",
+            "the level by adding them to the respective file.",
+            "",
+            "Some levels are timed, so be quick!",
+            "For more information on each level, please see their respective help page."
         },
 
         // Level easy
-        {  },
+        {
+            "Level \"Easy\"",
+            "",
+            "",
+            "",
+            "",
+            "This level is the easiest of them all. This level uses words with a length of 5-8 letters.",
+            "The easy level is not timed, only a time is shown in the top-right of the game screen.",
+            "This time shows you the amount of time you have needed up until then to complete the game.",
+            "",
+            "Playing this level is as is written in the \"Gameplay\" topic.",
+            "Simply type in a letter to see if it is correct, if you guessed the correct character, it",
+            "will be added to the placeholder at the bottom of the screen. ",
+            "If you guessed the character incorrectly, it will be added to the total amount of fails.",
+            "After you have guessed a total of 7 wrong characters, the game ends and you will return to the",
+            "level selection screen.",
+            "",
+            "All the words in this game are selected pseudo-randomly, but just random enough, that it is very",
+            "unlikely, that the same word will be selected twice or more in a row.",
+            "",
+            "The game will not end by itself, to end the game, you have to either guess the word correctly,",
+            "or incorrectly."
+        },
 
         // Level medium
-        {  },
+        {
+            "Level \"Medium\"",
+            "",
+            "",
+            "",
+            "",
+            "This level is good for all those who like a slight challenge.",
+            "This level uses words with a length of 16-18 letters.",
+            "The medium level is timed!",
+            "This level has a time limit of two minutes to complete the game.",
+            "The timer will display the time remaining to complete the game.",
+            "Once the timer runs out (when two minutes have been reached), the game will be over,",
+            "and you will return to the main menu."
+            "",
+            "Playing this level is as is written in the \"Gameplay\" topic.",
+            "Simply type in a letter to see if it is correct, if you guessed the correct character, it",
+            "will be added to the placeholder at the bottom of the screen. ",
+            "If you guessed the character incorrectly, it will be added to the total amount of fails.",
+            "After you have guessed a total of 7 wrong characters, or the timer has run out the game",
+            "ends and you will return to the level selection screen.",
+            "",
+            "All the words in this game are selected pseudo-randomly, but just random enough, that it is very",
+            "unlikely, that the same word will be selected twice or more in a row.",
+            ""
+        },
 
         // Level hard
-        {  },
+        {
+            "Level \"Hard\"",
+            "",
+            "",
+            "",
+            "",
+            "This level is good for all those who like more of a challenge!",
+            "This level uses words with a length of 20-22 letters.",
+            "The medium level is timed!",
+            "This level has a time limit of one minute to complete the game.",
+            "The timer will display the time remaining to complete the game.",
+            "Once the timer runs out (when one minute have been reached), the game will be over,",
+            "and you will return to the main menu."
+            "",
+            "Playing this level is as is written in the \"Gameplay\" topic.",
+            "Simply type in a letter to see if it is correct, if you guessed the correct character, it",
+            "will be added to the placeholder at the bottom of the screen. ",
+            "If you guessed the character incorrectly, it will be added to the total amount of fails.",
+            "After you have guessed a total of 7 wrong characters, or the timer has run out the game",
+            "ends and you will return to the level selection screen.",
+            "",
+            "All the words in this game are selected pseudo-randomly, but just random enough, that it is very",
+            "unlikely, that the same word will be selected twice or more in a row.",
+            ""
+        },
 
         // Level insane
-        {  }
+        {
+            "Level \"Insane!\"",
+            "",
+            "",
+            "",
+            "",
+            "This level has rightly deserved its name.",
+            "While playing this level, you will be greeted with words that are over 100 letters long!",
+            "",
+            "But that's not what makes this level so insane!",
+            "This level requires that you guess each and every letter in the correct order, in 30 seconds!",
+            "That means, that if, for example, the word \"hangman\" shows up, you have to guess each",
+            "letter in the correct order: h->a->n->g->m->-a->n",
+            "instead of for example the \"A\" filling in two spaces.",
+            "",
+            "The time limit is set to thirty seconds, so nimble and agile thinking is required!",
+            ""
+        }
     };
 
 
@@ -1406,9 +1502,10 @@ void printHelpText(int topic) {
 
     for (int i = 0; i < sizeof(helpTexts[topic]) / sizeof(helpTexts[topic][0]); i++) {
         short xCoord = 0;
-        xCoord = getConsoleLen() / divider + 2;
+        xCoord = getConsoleLen() / divider + 4;
         setCursorPosition(xCoord, yCoord++);
-        printf(CLEAR_HELP_LINE);
+        //printf(CLEAR_HELP_LINE);
+        printf(clearHelpLineString);
     }
 
     yCoord = 3;
@@ -1419,7 +1516,7 @@ void printHelpText(int topic) {
         if (i == 0) {
             xCoord = (getConsoleLen() + (getConsoleLen() / divider)) / 2 - strlen(row) / 2;
         } else {
-            xCoord = getConsoleLen() / divider + 2;
+            xCoord = getConsoleLen() / divider + 4;
         }
         setCursorPosition(xCoord, yCoord++);
         printf(row);
@@ -1431,6 +1528,14 @@ void setConsoleSize(short width, short height) {
     char cmd[12];
     sprintf(cmd, "mode %d, %d", width, height);
     system(cmd);
+    for (int i = 0; i < getConsoleLen(); i++) {
+        strcat(clearLineString, " ");
+    }
+
+    for (int i = 0; i < ((getConsoleLen() / divider) * (divider - 1)) - 5; i++) {
+        strcat(clearHelpLineString, " ");
+    }
+
 }
 
 /// EOF

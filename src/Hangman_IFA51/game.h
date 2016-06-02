@@ -8,6 +8,7 @@
 #define GAME_H_INCLUDED
 
 #include <stdbool.h>
+#include <windows.h>
 
 // Project includes
 #include "systemio.h"
@@ -78,5 +79,16 @@ char* toLower(char *str);
 ///         string.
 ///////////////////////////////////////
 char* trim(char *str);
+
+///////////////////////////////////////
+/// \brief  Displays the remaining time
+///         for the game in the top-right
+///         corner of the game screen.
+///         When the time is up
+///         (depends on the level being
+///         played), this will end the,
+///         current game.
+///////////////////////////////////////
+DWORD WINAPI showTimeRemaining(LPVOID data);
 
 #endif // GAME_H_INCLUDED

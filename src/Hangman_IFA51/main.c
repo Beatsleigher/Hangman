@@ -141,11 +141,11 @@ int main() {
     Sleep(2000);
 
     clearScreen();
-    ///printWelcomeScreen();
+    printWelcomeScreen();
 
     // Wait for user input, then open menu
-    ///printCentre("Hit [ ENTER ] to continue!", (getConsoleHeight() / 2) + 5);
-    ///getchar();
+    printCentre("Hit [ ENTER ] to continue!", (getConsoleHeight() / 2) + 5);
+    getchar();
 
 
     // Clear screen and send user to main menu
